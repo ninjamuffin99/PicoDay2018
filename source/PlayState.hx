@@ -10,16 +10,13 @@ import flixel.math.FlxMath;
 
 class PlayState extends FlxState
 {
-	private var _player:FlxSprite;
-	private var _playerSpeed:Float = 900;
+	private var _player:Player;
+
 	
 	
 	override public function create():Void
 	{
-		_player = new FlxSprite(10, 10).makeGraphic(64, 64);
-		_player.drag.x = 500;
-		_player.drag.y = 500;
-		_player.maxVelocity.x = _player.maxVelocity.y = 150;
+		_player = new Player(10, 10);
 		add(_player);
 		
 		super.create();

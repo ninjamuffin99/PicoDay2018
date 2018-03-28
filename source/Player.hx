@@ -1,6 +1,9 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.math.FlxAngle;
+import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**
@@ -9,14 +12,26 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite 
 {
+	private var _playerSpeed:Float = 900;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
 		
+		makeGraphic(64, 64);
+		
 		drag.x = 500;
 		drag.y = 500;
-		maxVelocity.x = _player.maxVelocity.y = 150;
+		maxVelocity.x = maxVelocity.y = 150;
+		
+	}
+	
+	override public function update(elapsed:Float):Void 
+	{
+		super.update(elapsed);
+		
+		controls();
+		rotation();
 		
 	}
 	
@@ -61,13 +76,22 @@ class Player extends FlxSprite
 			else if (_right)
 				mA = 0;
 			
-			_player.acceleration.set(_playerSpeed, 0);
-			_player.acceleration.rotate(FlxPoint.weak(0, 0), mA);
+			acceleration.set(_playerSpeed, 0);
+			acceleration.rotate(FlxPoint.weak(0, 0), mA);
 		}
 		else
 		{
-			_player.acceleration.x = _player.acceleration.y = 0;
+			acceleration.x = acceleration.y = 0;
 		}
+	}
+	
+	private function rotation():Void
+	{
+		var rads:Float = Math.atan2(FlxG.mouse.y - this.y, FlxG.mouse.x - this.x);
+		
+		var degs = FlxAngle.asDegrees(rads);
+		//FlxG.watch.addQuick("Degs/Angle", degs);
+		angle = degs + 90;
 	}
 	
 }
