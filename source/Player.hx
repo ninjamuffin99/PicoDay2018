@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -12,17 +13,25 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Player extends FlxSprite 
 {
-	private var _playerSpeed:Float = 900;
+	public static var mouseRot:Float;
+	
+	private var bulletArray:FlxTypedGroup<Bullet>;
+	
+	private var _playerSpeed:Float = 2700;
+	private var _playerDrag:Float = 900;
+	private var playerMaxVel:Float = 350;
 
-	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
+	public function new(?X:Float=0, ?Y:Float=0, playerBulletArray:FlxTypedGroup<Bullet>) 
 	{
-		super(X, Y, SimpleGraphic);
+		super(X, Y);
 		
-		makeGraphic(64, 64);
+		makeGraphic(64, 28);
 		
-		drag.x = 500;
-		drag.y = 500;
-		maxVelocity.x = maxVelocity.y = 150;
+		drag.x = _playerDrag;
+		drag.y = _playerDrag;
+		maxVelocity.x = maxVelocity.y = playerMaxVel;
+		
+		bulletArray = playerBulletArray;
 		
 	}
 	
@@ -32,11 +41,12 @@ class Player extends FlxSprite
 		
 		controls();
 		rotation();
-		
 	}
 	
 	private function controls():Void
 	{
+		mouseControl();
+		
 		var _left:Bool = FlxG.keys.anyPressed(["A", "LEFT"]);
 		var _right:Bool = FlxG.keys.anyPressed(["D", "RIGHT"]);
 		var _down:Bool = FlxG.keys.anyPressed(["S", "DOWN"]);
@@ -57,27 +67,24 @@ class Player extends FlxSprite
 			var mA:Float = 0;
 			if (_up)
 			{
-				mA = -90;
-				if (_left)
-					mA -= 45;
-				else if (_right)
-					mA += 45;
+				acceleration.y = -_playerSpeed;
 			}
 			else if (_down)
 			{
-				mA = 90;
-				if (_left)
-					mA += 45;
-				else if (_right)
-					mA -= 45;
+				acceleration.y = _playerSpeed;
 			}
-			else if (_left)
-				mA = 180;
-			else if (_right)
-				mA = 0;
+			else
+				acceleration.y = 0;
 			
-			acceleration.set(_playerSpeed, 0);
-			acceleration.rotate(FlxPoint.weak(0, 0), mA);
+			if (_left)
+				acceleration.x = -_playerSpeed;
+			else if (_right)
+				acceleration.x = _playerSpeed;
+			else
+				acceleration.x = 0;
+			
+			//acceleration.set(_playerSpeed, 0);
+			//acceleration.rotate(FlxPoint.weak(0, 0), mA);
 		}
 		else
 		{
@@ -85,9 +92,26 @@ class Player extends FlxSprite
 		}
 	}
 	
+	private function mouseControl():Void
+	{
+		var mClicked:Bool = FlxG.mouse.justPressed;
+		
+		if (mClicked)
+		{
+			attack();
+		}
+	}
+	
+	private function attack():Void
+	{
+		var newBullet = new Bullet(this.x, this.y, 1600, 60);
+		bulletArray.add(newBullet);
+	}
+	
 	private function rotation():Void
 	{
 		var rads:Float = Math.atan2(FlxG.mouse.y - this.y, FlxG.mouse.x - this.x);
+		mouseRot = rads;
 		
 		var degs = FlxAngle.asDegrees(rads);
 		//FlxG.watch.addQuick("Degs/Angle", degs);
