@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -12,6 +13,7 @@ import flixel.math.FlxMath;
 class PlayState extends FlxState
 {
 	private var _player:Player;
+	private var _camTrack:FlxObject;
 	private var testEnemy:Enemy;
 	private var playerBullets:FlxTypedGroup<Bullet>;
 	
@@ -38,10 +40,14 @@ class PlayState extends FlxState
 		_player = new Player(70, 70, playerBullets);
 		add(_player);
 		
+		_camTrack = new FlxObject(0, 0, 1, 1);
+		add(_camTrack);
+		
 		add(_grpEnemies);
 		
 		
-		FlxG.camera.follow(_player);
+		FlxG.camera.follow(_camTrack);
+		FlxG.camera.followLerp = 0.2;
 		
 		super.create();
 	}
@@ -52,6 +58,17 @@ class PlayState extends FlxState
 		
 		_player.tartgetLook.set(FlxG.mouse.x, FlxG.mouse.y);
 		
+		
+		var dx = _player.x - FlxG.mouse.x;
+		var dy = _player.y - FlxG.mouse.y;
+		var length = Math.sqrt(dx * dx + dy * dy);
+		dx *= 0.5;
+		dy *= 0.5;
+		
+		_camTrack.x = _player.x - dx;
+		_camTrack.y = _player.y - dy;
+		
+		
 		_grpEnemies.forEach(look);
 		
 		_map.collideWithLevel(_player);
@@ -59,7 +76,12 @@ class PlayState extends FlxState
 	
 	private function look(e:Enemy):Void
 	{
-		e.tartgetLook.set(_player.x, _player.y);
+		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()))
+		{
+			e.tartgetLook.set(_player.x, _player.y);
+		}
+		
+		
 	}
 
 }
