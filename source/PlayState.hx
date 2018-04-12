@@ -83,6 +83,32 @@ class PlayState extends FlxState
 		_grpEnemies.forEach(look);
 		
 		_map.collideWithLevel(_player);
+		
+		enemyBullets.forEachAlive(checkBulletOverlap);
+		playerBullets.forEachAlive(checkBulletOverlap);
+	}
+	
+	private function checkBulletOverlap(b:Bullet):Void
+	{
+		if (FlxG.overlap(b, _player) && b.bType == "Enemy")
+		{
+			b.kill();
+			_player.health -= FlxG.random.float(0.5, 1.5);
+		}
+		
+		
+		for (i in 0..._grpEnemies.members.length)
+		{
+			var enemy = _grpEnemies.members[i];
+			
+			if (FlxG.overlap(b, enemy) && b.bType == "Player")
+			{
+				b.kill();
+				enemy.health -= FlxG.random.float(0.5, 1.5);
+			}
+		
+		}
+		
 	}
 	
 	
@@ -91,9 +117,7 @@ class PlayState extends FlxState
 		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()))
 		{
 			e.tartgetLook.set(_player.x, _player.y);
-			e.attack();
+			e.attack("Enemy");
 		}
-		
 	}
-
 }

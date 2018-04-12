@@ -87,7 +87,7 @@ class Player extends Character
 		
 		if (mClicked)
 		{
-			attack();
+			attack("Player");
 		}
 	}
 

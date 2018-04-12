@@ -26,6 +26,8 @@ class Character extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		
+		health = 10;
+		
 		makeGraphic(64, 28);
 		
 		width = 40;
@@ -44,6 +46,11 @@ class Character extends FlxSprite
 		super.update(elapsed);
 		
 		rotation();
+		
+		if (health <= 0)
+		{
+			kill();
+		}
 	}
 
 	private function rotation():Void
@@ -56,9 +63,10 @@ class Character extends FlxSprite
 		angle = degs + 90;
 	}
 
-	public function attack():Void
+	public function attack(bullType:String):Void
 	{
 		var newBullet = new Bullet(this.x, this.y, 1600, 60, curRads);
+		newBullet.bType = bullType;
 		bulletArray.add(newBullet);
 	}
 

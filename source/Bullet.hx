@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.math.FlxAngle;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -17,6 +18,8 @@ class Bullet extends FlxSprite
 	private var life:Float = 3;
 	public var speed:Float;
 	private var angleOffset:Float = 0;
+	public var accuracy:Float = 1;
+	public var bType:String = "";
 	
 	public var damage:Float;
 	
@@ -26,7 +29,7 @@ class Bullet extends FlxSprite
 		
 		makeGraphic(32, 20);
 		
-		angleOffset = FlxAngle.asRadians(FlxG.random.float( -4, 4) + FlxAngle.asDegrees(bullAngle));
+		angleOffset = FlxAngle.asRadians(FlxG.random.float( -4, 4) * accuracy + FlxAngle.asDegrees(bullAngle));
 		
 		var xdir = Math.cos(angleOffset);
 		var ydir = Math.sin(angleOffset);
