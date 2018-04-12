@@ -69,18 +69,26 @@ class PlayState extends FlxState
 		
 		_player.tartgetLook.set(FlxG.mouse.x, FlxG.mouse.y);
 		
-		
+		//SHOUTOUT TO MIKE, AND ALSO BOMTOONS
 		var dx = _player.x - FlxG.mouse.x;
 		var dy = _player.y - FlxG.mouse.y;
 		//var length = Math.sqrt(dx * dx + dy * dy);
-		dx *= 0.5;
-		dy *= 0.5;
+		var camOffset = 0.4;
+		dx *= camOffset;
+		dy *= camOffset;
+		
+		if (FlxG.keys.pressed.SHIFT)
+		{
+			var shiftChange = 1.35;
+			dx *= shiftChange;
+			dy *= shiftChange;
+		}
 		
 		_camTrack.x = _player.x - dx;
 		_camTrack.y = _player.y - dy;
 		
 		
-		_grpEnemies.forEach(look);
+		_grpEnemies.forEachAlive(look);
 		
 		_map.collideWithLevel(_player);
 		
@@ -90,6 +98,19 @@ class PlayState extends FlxState
 	
 	private function checkBulletOverlap(b:Bullet):Void
 	{
+		/*
+		for (i in 0..._map.collidableTileLayers.length)
+		{
+			var tilemap = _map.collidableTileLayers[i];
+			
+			
+			if (FlxG.overlap(b, tilemap))
+			{
+				b.kill();
+			}
+		}
+		*/
+		
 		if (FlxG.overlap(b, _player) && b.bType == "Enemy")
 		{
 			b.kill();
@@ -106,7 +127,6 @@ class PlayState extends FlxState
 				b.kill();
 				enemy.health -= FlxG.random.float(0.5, 1.5);
 			}
-		
 		}
 		
 	}

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="5">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="6">
  <tileset firstgid="1" name="testTiles" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../../HeistGame/assets/data/tile_temple_0.png" width="272" height="64"/>
  </tileset>
  <tileset firstgid="17" source="../../../XmasAnxiety/assets/data/player.tsx"/>
- <objectgroup name="Images">
-  <object id="3" x="315.5" y="301.5" width="19.5" height="24"/>
-  <object id="4" x="329.5" y="262"/>
- </objectgroup>
- <layer name="Background" width="50" height="50">
+ <objectgroup name="Images"/>
+ <layer name="Background" width="50" height="50" visible="0">
   <properties>
    <property name="nocollide" value="true"/>
    <property name="tileset" value="testTiles"/>
@@ -27,7 +24,7 @@
  </layer>
  <objectgroup name="Objects"/>
  <objectgroup name="Enemies">
-  <object id="1" name="enemy" type="enemy" x="283.5" y="389"/>
+  <object id="1" name="enemy" type="enemy" x="584.667" y="526"/>
   <object id="2" name="Enemy" type="Enemy" x="266.5" y="521"/>
  </objectgroup>
 </map>

@@ -65,7 +65,7 @@ class Character extends FlxSprite
 
 	public function attack(bullType:String):Void
 	{
-		var newBullet = new Bullet(this.x, this.y, 1600, 60, curRads);
+		var newBullet = new Bullet(this.x, this.y, 1200, 60, curRads);
 		newBullet.bType = bullType;
 		bulletArray.add(newBullet);
 	}
