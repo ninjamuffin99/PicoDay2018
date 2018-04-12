@@ -15,7 +15,6 @@ class Player extends Character
 {
 	public static var mouseRot:Float;
 	
-	private var bulletArray:FlxTypedGroup<Bullet>;
 
 	public function new(?X:Float=0, ?Y:Float=0, playerBulletArray:FlxTypedGroup<Bullet>) 
 	{
@@ -91,11 +90,5 @@ class Player extends Character
 			attack();
 		}
 	}
-	
-	private function attack():Void
-	{
-		var newBullet = new Bullet(this.x, this.y, 1600, 60);
-		bulletArray.add(newBullet);
-	}
-	
+
 }

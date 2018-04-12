@@ -16,15 +16,17 @@ class Bullet extends FlxSprite
 {
 	private var life:Float = 3;
 	public var speed:Float;
-	private var angleOffset:Float = FlxAngle.asRadians(FlxG.random.float( -4, 4) + FlxAngle.asDegrees(Player.mouseRot));
+	private var angleOffset:Float = 0;
 	
 	public var damage:Float;
 	
-	public function new(?X:Float=0, ?Y:Float=0, Speed:Float, Damage:Float) 
+	public function new(?X:Float=0, ?Y:Float=0, Speed:Float, Damage:Float, bullAngle:Float) 
 	{
 		super(X, Y);
 		
 		makeGraphic(32, 20);
+		
+		angleOffset = FlxAngle.asRadians(FlxG.random.float( -4, 4) + FlxAngle.asDegrees(bullAngle));
 		
 		var xdir = Math.cos(angleOffset);
 		var ydir = Math.sin(angleOffset);

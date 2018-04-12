@@ -16,6 +16,7 @@ class PlayState extends FlxState
 	private var _camTrack:FlxObject;
 	private var testEnemy:Enemy;
 	private var playerBullets:FlxTypedGroup<Bullet>;
+	private var enemyBullets:FlxTypedGroup<Bullet>;
 	
 	public var _map:TiledLevel;
 	
@@ -37,6 +38,9 @@ class PlayState extends FlxState
 		playerBullets = new FlxTypedGroup<Bullet>();
 		add(playerBullets);
 		
+		enemyBullets = new FlxTypedGroup<Bullet>();
+		add(enemyBullets);
+		
 		_player = new Player(70, 70, playerBullets);
 		add(_player);
 		
@@ -45,11 +49,18 @@ class PlayState extends FlxState
 		
 		add(_grpEnemies);
 		
+		_grpEnemies.forEach(bulletSet);
+		
 		
 		FlxG.camera.follow(_camTrack);
-		FlxG.camera.followLerp = 0.2;
+		FlxG.camera.followLerp = 0.6;
 		
 		super.create();
+	}
+	
+	private function bulletSet(e:Enemy):Void
+	{
+		e.bulletArray = enemyBullets;
 	}
 
 	override public function update(elapsed:Float):Void
@@ -61,7 +72,7 @@ class PlayState extends FlxState
 		
 		var dx = _player.x - FlxG.mouse.x;
 		var dy = _player.y - FlxG.mouse.y;
-		var length = Math.sqrt(dx * dx + dy * dy);
+		//var length = Math.sqrt(dx * dx + dy * dy);
 		dx *= 0.5;
 		dy *= 0.5;
 		
@@ -74,13 +85,14 @@ class PlayState extends FlxState
 		_map.collideWithLevel(_player);
 	}
 	
+	
 	private function look(e:Enemy):Void
 	{
 		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()))
 		{
 			e.tartgetLook.set(_player.x, _player.y);
+			e.attack();
 		}
-		
 		
 	}
 
