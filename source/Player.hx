@@ -117,5 +117,4 @@ class Player extends FlxSprite
 		//FlxG.watch.addQuick("Degs/Angle", degs);
 		angle = degs + 90;
 	}
-	
 }
