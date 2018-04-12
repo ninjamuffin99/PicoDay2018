@@ -160,7 +160,7 @@ class TiledLevel extends TiledMap
 			}
 			
 			//objects layer
-			if (layer.name == "objects" || layer.name == "pickups")
+			if (layer.name == "objects" || layer.name == "Enemies")
 			{
 				for (o in objectLayer.objects)
 				{
@@ -218,10 +218,14 @@ class TiledLevel extends TiledMap
 		// objects in tiled are aligned bottom-left (top-left in flixel)
 		if (o.gid != -1)
 			y -= g.map.getGidOwner(o.gid).tileHeight;
-		/*
+		
 		switch (o.type.toLowerCase())
 		{
-				
+			case "enemy":
+				var enemy = new Enemy(x, y);
+				state._grpEnemies.add(enemy);
+				FlxG.log.add("added enemy");
+			/*	
 			case "floor":
 				var floor = new FlxObject(x, y, o.width, o.height);
 				state.floor = floor;
@@ -250,9 +254,9 @@ class TiledLevel extends TiledMap
 				exit.exists = false;
 				state.exit = exit;
 				group.add(exit);
-			
+			*/	
 		}
-		*/
+		
 	}
 
 	public function loadImages()

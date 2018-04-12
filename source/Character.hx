@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxAngle;
+import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**
@@ -15,6 +16,8 @@ class Character extends FlxSprite
 	private var _playerDrag:Float = 900;
 	private var playerMaxVel:Float = 350;
 	private var curRads:Float = 0;
+	
+	public var tartgetLook:FlxPoint = FlxPoint.get();
 
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
@@ -47,7 +50,7 @@ class Character extends FlxSprite
 	
 	private function rotation():Void
 	{
-		var rads:Float = Math.atan2(FlxG.mouse.y - this.y, FlxG.mouse.x - this.x);
+		var rads:Float = Math.atan2(tartgetLook.y - this.y, tartgetLook.x - this.x);
 		curRads = rads;
 		
 		var degs = FlxAngle.asDegrees(rads);
