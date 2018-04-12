@@ -21,9 +21,7 @@ class PlayState extends FlxState
 		_map = new TiledLevel("assets/data/mapTest.tmx", this);
 		
 		add(_map.backgroundLayer);
-		
 		add (_map.imagesLayer);
-		
 		add(_map.foregroundTiles);
 		add(_map.BGObjects);
 		add(_map.foregroundObjects);
@@ -33,7 +31,7 @@ class PlayState extends FlxState
 		playerBullets = new FlxTypedGroup<Bullet>();
 		add(playerBullets);
 		
-		_player = new Player(10, 10, playerBullets);
+		_player = new Player(70, 70, playerBullets);
 		add(_player);
 		
 		
@@ -45,6 +43,8 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
+		_map.collideWithLevel(_player);
 	}
 
 }

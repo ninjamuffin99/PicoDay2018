@@ -11,25 +11,15 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * ...
  * @author ninjaMuffin
  */
-class Player extends FlxSprite 
+class Player extends Character 
 {
 	public static var mouseRot:Float;
 	
 	private var bulletArray:FlxTypedGroup<Bullet>;
-	
-	private var _playerSpeed:Float = 2700;
-	private var _playerDrag:Float = 900;
-	private var playerMaxVel:Float = 350;
 
 	public function new(?X:Float=0, ?Y:Float=0, playerBulletArray:FlxTypedGroup<Bullet>) 
 	{
 		super(X, Y);
-		
-		makeGraphic(64, 28);
-		
-		drag.x = _playerDrag;
-		drag.y = _playerDrag;
-		maxVelocity.x = maxVelocity.y = playerMaxVel;
 		
 		bulletArray = playerBulletArray;
 		
@@ -40,7 +30,7 @@ class Player extends FlxSprite
 		super.update(elapsed);
 		
 		controls();
-		rotation();
+		mouseRot = curRads;
 	}
 	
 	private function controls():Void
@@ -108,13 +98,4 @@ class Player extends FlxSprite
 		bulletArray.add(newBullet);
 	}
 	
-	private function rotation():Void
-	{
-		var rads:Float = Math.atan2(FlxG.mouse.y - this.y, FlxG.mouse.x - this.x);
-		mouseRot = rads;
-		
-		var degs = FlxAngle.asDegrees(rads);
-		//FlxG.watch.addQuick("Degs/Angle", degs);
-		angle = degs + 90;
-	}
 }
