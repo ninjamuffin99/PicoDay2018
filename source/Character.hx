@@ -13,7 +13,8 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Character extends FlxSprite
 {
-	private var _playerSpeed:Float = 2700;
+	public var followSpeed:Int = 150;
+	public var _playerSpeed:Float = 2700;
 	private var _playerDrag:Float = 900;
 	private var playerMaxVel:Float = 350;
 	private var curRads:Float = 0;

@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
+import flixel.math.FlxVelocity;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
@@ -135,6 +136,7 @@ class PlayState extends FlxState
 		{
 			e.tartgetLook.set(_player.x, _player.y);
 			e.attack("Enemy");
+			FlxVelocity.moveTowardsPoint(e, _player.getPosition(), e.followSpeed);
 		}
 	}
 }
