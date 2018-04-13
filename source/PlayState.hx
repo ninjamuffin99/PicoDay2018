@@ -146,15 +146,17 @@ class PlayState extends FlxState
 			}
 		}
 		
-		
-		if (b.isTouching(FlxObject.WALL))
+		var lockerResistance:Float = 0.7;
+		switch(b.wasTouching)
 		{
-			b.velocity.x -= b.speed * 0.5;
-		}
-		
-		if (b.isTouching(FlxObject.CEILING) || b.isTouching(FlxObject.FLOOR))
-		{
-			b.velocity.y -= b.speed * 0.5;
+			case FlxObject.UP:
+				b.velocity.y += b.speed * lockerResistance;
+			case FlxObject.DOWN:
+				b.velocity.y -= b.speed * lockerResistance;
+			case FlxObject.LEFT:
+				b.velocity.x += b.speed * lockerResistance;
+			case FlxObject.RIGHT:
+				b.velocity.x -= b.speed * lockerResistance;
 		}
 	}
 	
