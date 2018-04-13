@@ -14,7 +14,8 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 class Player extends Character 
 {
 	public static var mouseRot:Float;
-	
+	public var playerMovePosition:FlxPoint = new FlxPoint();
+	private var moveTime:Int = 0;
 
 	public function new(?X:Float=0, ?Y:Float=0, playerBulletArray:FlxTypedGroup<Bullet>) 
 	{
@@ -32,6 +33,16 @@ class Player extends Character
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
+		if (moveTime <= 12)
+		{
+			moveTime = 0;
+			playerMovePosition = getPosition();
+		}
+		else
+		{
+			moveTime += 1;
+		}
 		
 		controls();
 		mouseRot = curRads;

@@ -10,6 +10,7 @@ import flixel.math.FlxVelocity;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
+import flixel.util.FlxTimer;
 
 class PlayState extends FlxState
 {
@@ -22,6 +23,10 @@ class PlayState extends FlxState
 	public var _map:TiledLevel;
 	
 	public var _grpEnemies:FlxTypedGroup<Enemy>;
+	
+	private var txtHealth:FlxText;
+	
+
 	
 	override public function create():Void
 	{
@@ -56,6 +61,10 @@ class PlayState extends FlxState
 		FlxG.camera.follow(_camTrack);
 		FlxG.camera.followLerp = 0.6;
 		
+		txtHealth = new FlxText(10, 10, 0, "", 32);
+		txtHealth.scrollFactor.set(0, 0);
+		add(txtHealth);
+		
 		super.create();
 	}
 	
@@ -67,6 +76,8 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
+		txtHealth.text = Std.string(FlxMath.roundDecimal(_player.health, 2));
 		
 		if (!_player.alive)
 		{
@@ -132,9 +143,9 @@ class PlayState extends FlxState
 	
 	private function look(e:Enemy):Void
 	{
-		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()))
+		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()) && FlxMath.isDistanceWithin(e, _player, 720))
 		{
-			e.tartgetLook.set(_player.x, _player.y);
+			e.tartgetLook.set(_player.playerMovePosition.x, _player.playerMovePosition.y);
 			e.attack("Enemy");
 			FlxVelocity.moveTowardsPoint(e, _player.getPosition(), e.followSpeed);
 		}
