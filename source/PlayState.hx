@@ -67,6 +67,11 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
+		if (!_player.alive)
+		{
+			FlxG.resetState();
+		}
+		
 		_player.tartgetLook.set(FlxG.mouse.x, FlxG.mouse.y);
 		
 		//SHOUTOUT TO MIKE, AND ALSO BOMTOONS

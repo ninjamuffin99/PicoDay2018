@@ -21,7 +21,12 @@ class Player extends Character
 		super(X, Y);
 		
 		bulletArray = playerBulletArray;
+		playerMaxVel = 450;
+		_playerSpeed = 3500;
+		_playerDrag = 1450;
 		
+		maxVelocity.set(playerMaxVel, playerMaxVel);
+		drag.set(_playerDrag, _playerDrag);
 	}
 	
 	override public function update(elapsed:Float):Void 
