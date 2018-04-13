@@ -73,8 +73,6 @@ class Bullet extends FlxSprite
 		if (life < 0)
 		{
 			kill();
-		}
-		
+		}	
 	}
-	
 }

@@ -16,6 +16,7 @@ import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
 import flixel.addons.tile.FlxTilemapExt;
 import flixel.addons.tile.FlxTileSpecial;
+import flixel.util.FlxColor;
 import haxe.io.Path;
 
 /**
@@ -160,7 +161,7 @@ class TiledLevel extends TiledMap
 			}
 			
 			//objects layer
-			if (layer.name == "objects" || layer.name == "Enemies")
+			if (layer.name == "Objects" || layer.name == "Enemies")
 			{
 				for (o in objectLayer.objects)
 				{
@@ -227,6 +228,10 @@ class TiledLevel extends TiledMap
 				enemy.health = 3;
 				state._grpEnemies.add(enemy);
 				FlxG.log.add("added enemy");
+			case "lockers":
+				var locker = new Locker(x, y);
+				locker.makeGraphic(o.width, o.height, FlxColor.GRAY);
+				state._grpLockers.add(locker);
 			/*	
 			case "floor":
 				var floor = new FlxObject(x, y, o.width, o.height);

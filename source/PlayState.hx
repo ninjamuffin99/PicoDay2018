@@ -23,14 +23,15 @@ class PlayState extends FlxState
 	public var _map:TiledLevel;
 	
 	public var _grpEnemies:FlxTypedGroup<Enemy>;
+	public var _grpLockers:FlxTypedGroup<Locker>;
 	
-	private var txtHealth:FlxText;
+	public var txtHealth:FlxText;
 	
-
 	
 	override public function create():Void
 	{
 		_grpEnemies = new FlxTypedGroup<Enemy>();
+		_grpLockers = new FlxTypedGroup<Locker>();
 		
 		_map = new TiledLevel("assets/data/mapTest.tmx", this);
 		
@@ -54,6 +55,7 @@ class PlayState extends FlxState
 		add(_camTrack);
 		
 		add(_grpEnemies);
+		add(_grpLockers);
 		
 		_grpEnemies.forEach(bulletSet);
 		
@@ -65,6 +67,8 @@ class PlayState extends FlxState
 		txtHealth.scrollFactor.set(0, 0);
 		add(txtHealth);
 		
+		FlxG.worldBounds.set(_map.width, _map.height);
+		
 		super.create();
 	}
 	
@@ -75,6 +79,10 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		//THEsd
+		enemyBullets.forEachAlive(checkBulletOverlap);
+		playerBullets.forEachAlive(checkBulletOverlap);
+		
 		super.update(elapsed);
 		
 		txtHealth.text = Std.string(FlxMath.roundDecimal(_player.health, 2));
@@ -83,6 +91,8 @@ class PlayState extends FlxState
 		{
 			FlxG.resetState();
 		}
+		FlxG.collide(_grpLockers, playerBullets);
+		FlxG.collide(_grpLockers, enemyBullets);
 		
 		_player.tartgetLook.set(FlxG.mouse.x, FlxG.mouse.y);
 		
@@ -109,8 +119,6 @@ class PlayState extends FlxState
 		
 		_map.collideWithLevel(_player);
 		
-		enemyBullets.forEachAlive(checkBulletOverlap);
-		playerBullets.forEachAlive(checkBulletOverlap);
 	}
 	
 	private function checkBulletOverlap(b:Bullet):Void
@@ -138,8 +146,17 @@ class PlayState extends FlxState
 			}
 		}
 		
+		
+		if (b.isTouching(FlxObject.WALL))
+		{
+			b.velocity.x -= b.speed * 0.5;
+		}
+		
+		if (b.isTouching(FlxObject.CEILING) || b.isTouching(FlxObject.FLOOR))
+		{
+			b.velocity.y -= b.speed * 0.5;
+		}
 	}
-	
 	
 	private function look(e:Enemy):Void
 	{
