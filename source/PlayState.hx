@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -24,6 +25,7 @@ class PlayState extends FlxState
 	
 	public var _grpEnemies:FlxTypedGroup<Enemy>;
 	public var _grpLockers:FlxTypedGroup<Locker>;
+	public var _grpCollidableObjects:FlxTypedGroup<FlxBasic>;
 	
 	public var txtHealth:FlxText;
 	
@@ -32,6 +34,7 @@ class PlayState extends FlxState
 	{
 		_grpEnemies = new FlxTypedGroup<Enemy>();
 		_grpLockers = new FlxTypedGroup<Locker>();
+		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
 		
 		_map = new TiledLevel("assets/data/mapTest.tmx", this);
 		
@@ -55,7 +58,8 @@ class PlayState extends FlxState
 		add(_camTrack);
 		
 		add(_grpEnemies);
-		add(_grpLockers);
+		add(_grpCollidableObjects);
+		_grpCollidableObjects.add(_grpLockers);
 		
 		_grpEnemies.forEach(bulletSet);
 		
@@ -91,8 +95,9 @@ class PlayState extends FlxState
 		{
 			FlxG.resetState();
 		}
-		FlxG.collide(_grpLockers, playerBullets);
-		FlxG.collide(_grpLockers, enemyBullets);
+		FlxG.collide(_grpCollidableObjects, enemyBullets);
+		FlxG.collide(_grpCollidableObjects, playerBullets);
+		FlxG.collide(_player, _grpCollidableObjects);
 		
 		_player.tartgetLook.set(FlxG.mouse.x, FlxG.mouse.y);
 		
@@ -146,17 +151,21 @@ class PlayState extends FlxState
 			}
 		}
 		
-		var lockerResistance:Float = 0.7;
+		var lockerResistance:Float = 0.9;
 		switch(b.wasTouching)
 		{
 			case FlxObject.UP:
 				b.velocity.y += b.speed * lockerResistance;
+				b.angle += 180;
 			case FlxObject.DOWN:
 				b.velocity.y -= b.speed * lockerResistance;
+				b.angle += 180;
 			case FlxObject.LEFT:
 				b.velocity.x += b.speed * lockerResistance;
+				b.angle += 180;
 			case FlxObject.RIGHT:
 				b.velocity.x -= b.speed * lockerResistance;
+				b.angle += 180;
 		}
 	}
 	
