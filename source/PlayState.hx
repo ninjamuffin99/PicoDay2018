@@ -98,18 +98,10 @@ class PlayState extends FlxState
 	
 	private function checkBulletOverlap(b:Bullet):Void
 	{
-		/*
-		for (i in 0..._map.collidableTileLayers.length)
+		if (_map.collideWithLevel(b))
 		{
-			var tilemap = _map.collidableTileLayers[i];
-			
-			
-			if (FlxG.overlap(b, tilemap))
-			{
-				b.kill();
-			}
+			b.kill();
 		}
-		*/
 		
 		if (FlxG.overlap(b, _player) && b.bType == "Enemy")
 		{

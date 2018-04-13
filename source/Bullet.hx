@@ -28,6 +28,10 @@ class Bullet extends FlxSprite
 		super(X, Y);
 		
 		makeGraphic(32, 20);
+		width = 10;
+		height = 10;
+		offset.y = 5;
+		offset.x = 11;
 		
 		angleOffset = FlxAngle.asRadians(FlxG.random.float( -4, 4) * accuracy + FlxAngle.asDegrees(bullAngle));
 		
