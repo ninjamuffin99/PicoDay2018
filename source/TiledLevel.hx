@@ -223,6 +223,7 @@ class TiledLevel extends TiledMap
 		{
 			case "enemy":
 				var enemy = new Enemy(x, y);
+				enemy.firerate = 10;
 				state._grpEnemies.add(enemy);
 				FlxG.log.add("added enemy");
 			/*	
