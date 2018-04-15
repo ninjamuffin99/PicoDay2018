@@ -4,6 +4,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxAngle;
 import flixel.math.FlxVelocity;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.util.FlxColor;
 import flixel.util.FlxPath;
 
 /**
@@ -18,7 +19,7 @@ class Enemy extends Character
 	private var patrolPath:FlxPath;
 	private var curNode:Int = 0;
 	
-	public var isDead:Bool = false;
+
 	
 	public function new(?X:Float=0, ?Y:Float=0, Path:FlxPath) 
 	{
@@ -36,7 +37,7 @@ class Enemy extends Character
 	{
 		super.update(elapsed);
 		
-		if (!seesPlayer)
+		if (!seesPlayer && (velocity.x != 0 || velocity.y != 0))
 		{
 			var rads:Float = Math.atan2(velocity.y, velocity.x);
 			//curRads = rads;
@@ -46,7 +47,7 @@ class Enemy extends Character
 			angle = degs + 90;
 		}
 		
-		if (path != null)
+		if (path != null && !isDead)
 		{
 			curNode = path.nodeIndex;
 			if (seesPlayer)
@@ -59,5 +60,17 @@ class Enemy extends Character
 				//path.setNode(curNode);
 			}
 		}
+	}
+	
+	public function shot(velX:Float, velY:Float):Void
+	{
+		makeGraphic(64, 80, FlxColor.LIME);
+		velocity.x += velX;
+		velocity.y += velY;
+		
+		width = 40;
+		height = 40;
+		offset.x = 12;
+		offset.y = 20;
 	}
 }

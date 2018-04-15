@@ -35,6 +35,7 @@ class Player extends Character
 	{
 		super.update(elapsed);
 		
+		FlxG.watch.addQuick("rads: ", curRads);
 		
 		if (moveTime <= 12)
 		{

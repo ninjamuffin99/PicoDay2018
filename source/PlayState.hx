@@ -51,8 +51,6 @@ class PlayState extends FlxState
 		enemyBullets = new FlxTypedGroup<Bullet>();
 		add(enemyBullets);
 		
-		_player = new Player(70, 70, playerBullets);
-		add(_player);
 		
 		_camTrack = new FlxObject(0, 0, 1, 1);
 		add(_camTrack);
@@ -60,6 +58,10 @@ class PlayState extends FlxState
 		add(_grpEnemies);
 		add(_grpCollidableObjects);
 		_grpCollidableObjects.add(_grpLockers);
+		
+		_player = new Player(70, 70, playerBullets);
+		add(_player);
+		
 		
 		_grpEnemies.forEach(bulletSet);
 		
@@ -123,6 +125,7 @@ class PlayState extends FlxState
 		_grpEnemies.forEachAlive(look);
 		
 		_map.collideWithLevel(_player);
+		_map.collideWithLevel(_grpEnemies);
 		
 	}
 	
@@ -136,7 +139,7 @@ class PlayState extends FlxState
 		if (FlxG.overlap(b, _player) && b.bType == "Enemy")
 		{
 			b.kill();
-			_player.health -= FlxG.random.float(0.5, 1.5);
+			_player.hurt(FlxG.random.float(0.5, 1.5));
 		}
 		
 		
@@ -144,10 +147,11 @@ class PlayState extends FlxState
 		{
 			var enemy = _grpEnemies.members[i];
 			
-			if (FlxG.overlap(b, enemy) && b.bType == "Player")
+			if (FlxG.overlap(b, enemy) && b.bType == "Player" && !enemy.isDead)
 			{
+				enemy.health -= 1;
+				enemy.shot(b.velocity.x, b.velocity.y);
 				b.kill();
-				enemy.health -= FlxG.random.float(0.9, 1.5);
 			}
 		}
 		
@@ -171,7 +175,7 @@ class PlayState extends FlxState
 	
 	private function look(e:Enemy):Void
 	{
-		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()) && FlxMath.isDistanceWithin(e, _player, 460))
+		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()) && FlxMath.isDistanceWithin(e, _player, 460) && !e.isDead)
 		{
 			e.seesPlayer = true;
 			e.tartgetLook.set(_player.playerMovePosition.x, _player.playerMovePosition.y);

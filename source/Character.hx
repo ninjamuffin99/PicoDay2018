@@ -24,6 +24,7 @@ class Character extends FlxSprite
 	public var firerate:Int = 0;
 	private var curFirtime:Int = 0;
 	public var canFire:Bool = false;
+	public var isDead:Bool = false;
 	
 	public var bulletArray:FlxTypedGroup<Bullet>;
 
@@ -44,6 +45,7 @@ class Character extends FlxSprite
 		drag.y = _playerDrag;
 		maxVelocity.x = maxVelocity.y = playerMaxVel;
 		
+		
 	}
 
 	override public function update(elapsed:Float):Void
@@ -53,10 +55,10 @@ class Character extends FlxSprite
 		rotation();
 		firingHandling();
 		
-		if (health <= 0)
+		if (health <= 0 && !isDead)
 		{
 			FlxG.camera.shake(0.02, 0.02);
-			kill();
+			isDead = true;
 		}
 	}
 	
