@@ -174,8 +174,19 @@ class PlayState extends FlxState
 		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()) && FlxMath.isDistanceWithin(e, _player, 720))
 		{
 			e.tartgetLook.set(_player.playerMovePosition.x, _player.playerMovePosition.y);
-			e.attack("Enemy");
-			FlxVelocity.moveTowardsPoint(e, _player.getPosition(), e.followSpeed);
+			if (e.reactionTime <= 0)
+			{
+				e.attack("Enemy");
+				FlxVelocity.moveTowardsPoint(e, _player.getPosition(), e.followSpeed);
+			}
+			else
+			{
+				e.reactionTime -= FlxG.elapsed;
+			}
+		}
+		else
+		{
+			e.reactionTime = 0.3;
 		}
 	}
 }

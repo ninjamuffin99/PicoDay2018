@@ -9,7 +9,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  */
 class Enemy extends Character 
 {
-
+	public var reactionTime:Float = 0.3;
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
