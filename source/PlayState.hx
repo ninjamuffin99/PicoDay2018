@@ -171,7 +171,7 @@ class PlayState extends FlxState
 	
 	private function look(e:Enemy):Void
 	{
-		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()) && FlxMath.isDistanceWithin(e, _player, 720))
+		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()) && FlxMath.isDistanceWithin(e, _player, 460))
 		{
 			e.seesPlayer = true;
 			e.tartgetLook.set(_player.playerMovePosition.x, _player.playerMovePosition.y);

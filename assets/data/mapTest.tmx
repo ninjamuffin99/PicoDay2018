@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="29">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="36">
  <tileset firstgid="1" name="testTiles" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../../HeistGame/assets/data/tile_temple_0.png" width="272" height="64"/>
  </tileset>
@@ -30,24 +30,33 @@
  <objectgroup name="Enemies">
   <object id="1" name="boys" type="enemy" x="590" y="530.667"/>
   <object id="2" name="enemy" type="enemy" x="266.5" y="521"/>
-  <object id="7" name="enemy" type="enemy" x="673.333" y="785.333"/>
+  <object id="7" name="horatio" type="enemy" x="673.333" y="785.333"/>
   <object id="8" name="enemy" type="enemy" x="388" y="774.667"/>
-  <object id="9" name="enemy" type="enemy" x="860" y="878.667"/>
+  <object id="9" name="mike" type="enemy" x="860" y="878.667"/>
   <object id="10" name="enemy" type="enemy" x="1288" y="934.667"/>
   <object id="11" name="enemy" type="enemy" x="1448" y="1072"/>
   <object id="12" name="enemy" type="enemy" x="1501.33" y="786.667"/>
-  <object id="13" name="enemy" type="enemy" x="1123.33" y="504"/>
+  <object id="13" name="coolPath" type="enemy" x="1123.33" y="504"/>
   <object id="15" name="enemy" type="enemy" x="1116" y="670.667"/>
-  <object id="16" name="lous" type="enemy" x="954.667" y="416"/>
+  <object id="16" name="lous" type="enemy" x="1261.33" y="331.333"/>
   <object id="17" name="bob" type="enemy" x="643.5" y="363.833"/>
   <object id="25" name="bob" x="613" y="391.5">
-   <polyline points="0,0 -1.5,-189 98,-197.5 147,-120.5 108.5,-60 98,37.5 50,15.5 20,9.5"/>
+   <polyline points="0,0 -1.5,-189 22,-205.5 365.667,-205.167 384.5,-182.667 376.667,20.1667 351.333,42.1667 20.6667,27.5"/>
   </object>
   <object id="27" name="boys" x="308" y="519.333">
    <polyline points="0,0 586.667,-6.66667 663.333,130 196.667,134.667 -15.3333,132 -16,0"/>
   </object>
   <object id="28" name="lous" x="994.667" y="411.333">
-   <polyline points="0,0 0.666667,-59.3333 89.3333,-58 107.333,-46 107.333,-2.66667 124,16 516,18.6667 526.667,0.666667 505.333,-203.333 484,-218.667 138.667,-228 110,-212 106,-158 94,-138 21.3333,-132 -6.66667,-146.667 -6.66667,-223.333 -73.3333,-220.667 -91.3333,-202.667 -99.3333,-28.6667 -79.3333,2"/>
+   <polyline points="107.333,-2.66667 124,16 516,18.6667 526.667,0.666667 505.333,-203.333 484,-218.667 132.667,-216 107.333,-189.333"/>
+  </object>
+  <object id="33" name="coolPath" x="1149.33" y="499.333">
+   <polyline points="-27.3333,5.33333 337.333,3.33333"/>
+  </object>
+  <object id="34" name="mike" x="853.333" y="958">
+   <polyline points="0,0 4.66667,119.333 22.6667,143.333 142,144.667 177.333,129.333 174.667,-178.667 150,-197.333 25.3333,-201.333 4,-184.667"/>
+  </object>
+  <object id="35" name="horatio" x="661.333" y="760">
+   <polyline points="0,0 -279.333,50.6667 14.6667,96.6667 -276,125.333 16,176.667 -268,214 -16.6667,260.667 -266,305.333 -18.6667,331.333 -254,268.667 -15.3333,219.333 -254,164 -5.33333,132 -233.333,83.3333 -15.3333,46.6667 -235.333,2.66667"/>
   </object>
  </objectgroup>
 </map>

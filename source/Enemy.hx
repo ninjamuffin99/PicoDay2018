@@ -16,6 +16,7 @@ class Enemy extends Character
 	public var seesPlayer:Bool = false;
 	private var pathSpeed:Float = 200;
 	private var patrolPath:FlxPath;
+	private var curNode:Int = 0;
 	
 	public function new(?X:Float=0, ?Y:Float=0, Path:FlxPath) 
 	{
@@ -45,6 +46,7 @@ class Enemy extends Character
 		
 		if (path != null)
 		{
+			curNode = path.nodeIndex;
 			if (seesPlayer)
 			{
 				path.cancel();
@@ -52,6 +54,7 @@ class Enemy extends Character
 			else if (!path.active)
 			{
 				path.start(null, pathSpeed, FlxPath.LOOP_FORWARD);
+				//path.setNode(curNode);
 			}
 		}
 	}
