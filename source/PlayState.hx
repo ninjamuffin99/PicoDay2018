@@ -60,6 +60,7 @@ class PlayState extends FlxState
 		_grpCollidableObjects.add(_grpLockers);
 		
 		_player = new Player(70, 70, playerBullets);
+		_player.accuracy = 0.5;
 		add(_player);
 		
 		
@@ -126,7 +127,6 @@ class PlayState extends FlxState
 		
 		_map.collideWithLevel(_player);
 		_map.collideWithLevel(_grpEnemies);
-		
 	}
 	
 	private function checkBulletOverlap(b:Bullet):Void

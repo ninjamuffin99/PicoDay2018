@@ -65,6 +65,11 @@ class Enemy extends Character
 	public function shot(velX:Float, velY:Float):Void
 	{
 		makeGraphic(64, 80, FlxColor.LIME);
+		if (path != null)
+		{
+			path.cancel();
+		}
+		
 		velocity.x += velX;
 		velocity.y += velY;
 		

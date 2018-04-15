@@ -37,6 +37,12 @@ class Player extends Character
 		
 		FlxG.watch.addQuick("rads: ", curRads);
 		
+		if (health < 10)
+		{
+			health += 0.1 * FlxG.elapsed;
+		}
+		
+		
 		if (moveTime <= 12)
 		{
 			moveTime = 0;

@@ -18,6 +18,7 @@ class Character extends FlxSprite
 	private var _playerDrag:Float = 900;
 	private var playerMaxVel:Float = 350;
 	private var curRads:Float = 0;
+	public var accuracy:Float = 1;
 	
 
 	public var tartgetLook:FlxPoint = FlxPoint.get();
@@ -90,7 +91,8 @@ class Character extends FlxSprite
 	{
 		if (canFire)
 		{
-			var newBullet = new Bullet(this.x, this.y, 1200, 60, curRads);
+			var newBullet = new Bullet(getMidpoint().x, getMidpoint().y, 1200, 60, curRads);
+			newBullet.accuracy = accuracy;
 			newBullet.bType = bullType;
 			bulletArray.add(newBullet);
 			canFire = false;
