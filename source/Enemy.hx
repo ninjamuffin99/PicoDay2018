@@ -13,6 +13,7 @@ class Enemy extends Character
 	public var reactionTime:Float = 0.3;
 	public var seesPlayer:Bool = false;
 	private var pathSpeed:Float = 200;
+	private var patrolPath:FlxPath;
 	
 	public function new(?X:Float=0, ?Y:Float=0, Path:FlxPath) 
 	{
@@ -20,6 +21,7 @@ class Enemy extends Character
 		
 		if (Path != null)
 		{
+			patrolPath = Path;
 			path = Path;
 			path.start(null, pathSpeed, FlxPath.LOOP_FORWARD);
 		}

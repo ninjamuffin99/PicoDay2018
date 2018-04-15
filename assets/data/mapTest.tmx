@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="26">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="28">
  <tileset firstgid="1" name="testTiles" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../../HeistGame/assets/data/tile_temple_0.png" width="272" height="64"/>
  </tileset>
@@ -28,8 +28,8 @@
   <object id="24" name="lockers" type="lockers" x="243.5" y="686" width="256" height="30.167"/>
  </objectgroup>
  <objectgroup name="Enemies">
-  <object id="1" name="enemy" type="enemy" x="584.667" y="526"/>
-  <object id="2" name="Enemy" type="Enemy" x="266.5" y="521"/>
+  <object id="1" name="boys" type="enemy" x="590" y="530.667"/>
+  <object id="2" name="enemy" type="enemy" x="266.5" y="521"/>
   <object id="7" name="enemy" type="enemy" x="673.333" y="785.333"/>
   <object id="8" name="enemy" type="enemy" x="388" y="774.667"/>
   <object id="9" name="enemy" type="enemy" x="860" y="878.667"/>
@@ -42,6 +42,9 @@
   <object id="17" name="bob" type="enemy" x="643.5" y="363.833"/>
   <object id="25" name="bob" x="613" y="391.5">
    <polyline points="0,0 -1.5,-189 98,-197.5 147,-120.5 108.5,-60 98,37.5 50,15.5 20,9.5"/>
+  </object>
+  <object id="27" name="boys" x="308" y="519.333">
+   <polyline points="0,0 586.667,-6.66667 663.333,130 196.667,134.667 -15.3333,132 -16,0"/>
   </object>
  </objectgroup>
 </map>
