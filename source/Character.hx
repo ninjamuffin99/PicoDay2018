@@ -55,6 +55,7 @@ class Character extends FlxSprite
 		
 		if (health <= 0)
 		{
+			FlxG.camera.shake(0.02, 0.02);
 			kill();
 		}
 	}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="28">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="29">
  <tileset firstgid="1" name="testTiles" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../../HeistGame/assets/data/tile_temple_0.png" width="272" height="64"/>
  </tileset>
@@ -38,13 +38,16 @@
   <object id="12" name="enemy" type="enemy" x="1501.33" y="786.667"/>
   <object id="13" name="enemy" type="enemy" x="1123.33" y="504"/>
   <object id="15" name="enemy" type="enemy" x="1116" y="670.667"/>
-  <object id="16" name="enemy" type="enemy" x="954.667" y="416"/>
+  <object id="16" name="lous" type="enemy" x="954.667" y="416"/>
   <object id="17" name="bob" type="enemy" x="643.5" y="363.833"/>
   <object id="25" name="bob" x="613" y="391.5">
    <polyline points="0,0 -1.5,-189 98,-197.5 147,-120.5 108.5,-60 98,37.5 50,15.5 20,9.5"/>
   </object>
   <object id="27" name="boys" x="308" y="519.333">
    <polyline points="0,0 586.667,-6.66667 663.333,130 196.667,134.667 -15.3333,132 -16,0"/>
+  </object>
+  <object id="28" name="lous" x="994.667" y="411.333">
+   <polyline points="0,0 0.666667,-59.3333 89.3333,-58 107.333,-46 107.333,-2.66667 124,16 516,18.6667 526.667,0.666667 505.333,-203.333 484,-218.667 138.667,-228 110,-212 106,-158 94,-138 21.3333,-132 -6.66667,-146.667 -6.66667,-223.333 -73.3333,-220.667 -91.3333,-202.667 -99.3333,-28.6667 -79.3333,2"/>
   </object>
  </objectgroup>
 </map>
