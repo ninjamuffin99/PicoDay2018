@@ -6,6 +6,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import haxe.io.BytesOutput;
 
 /**
  * ...
@@ -22,9 +23,9 @@ class Player extends Character
 		super(X, Y);
 		
 		bulletArray = playerBulletArray;
-		playerMaxVel = 450;
-		_playerSpeed = 3500;
-		_playerDrag = 1450;
+		playerMaxVel = 510;
+		_playerSpeed = 3800;
+		_playerDrag = 1610;
 		
 		maxVelocity.set(playerMaxVel, playerMaxVel);
 		drag.set(_playerDrag, _playerDrag);
@@ -33,6 +34,7 @@ class Player extends Character
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
 		
 		if (moveTime <= 12)
 		{
@@ -97,12 +99,15 @@ class Player extends Character
 		}
 	}
 	
+	
+	
 	private function mouseControl():Void
 	{
 		var mClicked:Bool = FlxG.mouse.justPressed;
 		
 		if (mClicked)
 		{
+			FlxG.camera.shake(0.01, 0.08);
 			attack("Player");
 		}
 	}

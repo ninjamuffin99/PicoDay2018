@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="25">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="26">
  <tileset firstgid="1" name="testTiles" tilewidth="32" tileheight="32" tilecount="16" columns="8">
   <image source="../../../HeistGame/assets/data/tile_temple_0.png" width="272" height="64"/>
  </tileset>
@@ -39,6 +39,9 @@
   <object id="13" name="enemy" type="enemy" x="1123.33" y="504"/>
   <object id="15" name="enemy" type="enemy" x="1116" y="670.667"/>
   <object id="16" name="enemy" type="enemy" x="954.667" y="416"/>
-  <object id="17" name="enemy" type="enemy" x="604" y="417.333"/>
+  <object id="17" name="bob" type="enemy" x="643.5" y="363.833"/>
+  <object id="25" name="bob" x="613" y="391.5">
+   <polyline points="0,0 -1.5,-189 98,-197.5 147,-120.5 108.5,-60 98,37.5 50,15.5 20,9.5"/>
+  </object>
  </objectgroup>
 </map>

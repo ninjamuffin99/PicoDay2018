@@ -173,6 +173,7 @@ class PlayState extends FlxState
 	{
 		if (_map.collidableTileLayers[0].ray(e.getMidpoint(), _player.getMidpoint()) && FlxMath.isDistanceWithin(e, _player, 720))
 		{
+			e.seesPlayer = true;
 			e.tartgetLook.set(_player.playerMovePosition.x, _player.playerMovePosition.y);
 			if (e.reactionTime <= 0)
 			{
@@ -186,6 +187,7 @@ class PlayState extends FlxState
 		}
 		else
 		{
+			e.seesPlayer = false;
 			e.reactionTime = 0.3;
 		}
 	}

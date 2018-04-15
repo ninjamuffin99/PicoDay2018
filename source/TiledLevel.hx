@@ -17,6 +17,7 @@ import flixel.tile.FlxTilemap;
 import flixel.addons.tile.FlxTilemapExt;
 import flixel.addons.tile.FlxTileSpecial;
 import flixel.util.FlxColor;
+import flixel.util.FlxPath;
 import haxe.io.Path;
 
 /**
@@ -35,6 +36,8 @@ class TiledLevel extends TiledMap
 	public var objectsLayer:FlxGroup;
 	public var backgroundLayer:FlxGroup;
 	public var collidableTileLayers:Array<FlxTilemap>;
+	
+	private var entityLayer:TiledObjectLayer;
 	
 	// Sprites of images layers
 	public var imagesLayer:FlxGroup;
@@ -150,7 +153,7 @@ class TiledLevel extends TiledMap
 			if (layer.type != TiledLayerType.OBJECT)
 				continue;
 			var objectLayer:TiledObjectLayer = cast layer;
-			
+			entityLayer = objectLayer;
 			//collection of images layer
 			if (layer.name == "images")
 			{
@@ -223,11 +226,12 @@ class TiledLevel extends TiledMap
 		switch (o.type.toLowerCase())
 		{
 			case "enemy":
-				var enemy = new Enemy(x, y);
+				var p:FlxPath = getPathData(o);
+				var enemy = new Enemy(x, y, p);
 				enemy.firerate = 10;
-				enemy.health = 3;
+				enemy.health = 1.2;
+				
 				state._grpEnemies.add(enemy);
-				FlxG.log.add("added enemy");
 			case "lockers":
 				var locker = new Locker(x, y);
 				locker.makeGraphic(o.width, o.height, FlxColor.GRAY);
@@ -277,6 +281,27 @@ class TiledLevel extends TiledMap
 			var sprite = new FlxSprite(image.x, image.y, c_PATH_LEVEL_TILESHEETS + image.imagePath);
 			imagesLayer.add(sprite);
 		}
+	}
+	
+	public function getPathData(Obj:TiledObject):FlxPath
+	{
+		var name = Obj.name;
+		
+		for (o in entityLayer.objects)
+		{
+			if (o.objectType == TiledObject.POLYLINE && o.name  == name)
+			{
+				var points = o.points;
+				for (point in points)
+				{
+					point.x += o.x;
+					point.y += o.y;
+				}
+				
+				return new FlxPath(points);
+			}
+		}
+		return null;
 	}
 	
 	public function collideWithLevel(obj:Dynamic, ?notifyCallback:FlxObject->FlxObject->Void, ?processCallback:FlxObject->FlxObject->Bool):Bool
