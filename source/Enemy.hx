@@ -1,6 +1,8 @@
 package;
 
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxAngle;
+import flixel.math.FlxVelocity;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxPath;
 
@@ -30,6 +32,16 @@ class Enemy extends Character
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
+		if (!seesPlayer)
+		{
+			var rads:Float = Math.atan2(velocity.y, velocity.x);
+			//curRads = rads;
+			
+			var degs = FlxAngle.asDegrees(rads);
+			//FlxG.watch.addQuick("Degs/Angle", degs);
+			angle = degs + 90;
+		}
 		
 		if (path != null)
 		{
