@@ -1,0 +1,7 @@
+Need to do:
+	when enemies die, they leave bodies
+	windows
+	maybe make it so that the player only has one HP also
+	
+Done:
+	enemies die from one shot

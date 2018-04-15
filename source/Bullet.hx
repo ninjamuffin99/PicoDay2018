@@ -59,6 +59,14 @@ class Bullet extends FlxSprite
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
+		var rads:Float = Math.atan2(velocity.y, velocity.x);
+		//curRads = rads;
+		
+		var degs = FlxAngle.asDegrees(rads);
+		//FlxG.watch.addQuick("Degs/Angle", degs);
+		angle = degs;
+		
 		/*
 		if (dir == FlxObject.LEFT)
 		{

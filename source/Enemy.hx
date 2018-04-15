@@ -18,6 +18,8 @@ class Enemy extends Character
 	private var patrolPath:FlxPath;
 	private var curNode:Int = 0;
 	
+	public var isDead:Bool = false;
+	
 	public function new(?X:Float=0, ?Y:Float=0, Path:FlxPath) 
 	{
 		super(X, Y);

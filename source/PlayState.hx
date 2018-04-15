@@ -147,7 +147,7 @@ class PlayState extends FlxState
 			if (FlxG.overlap(b, enemy) && b.bType == "Player")
 			{
 				b.kill();
-				enemy.health -= FlxG.random.float(0.5, 1.5);
+				enemy.health -= FlxG.random.float(0.9, 1.5);
 			}
 		}
 		

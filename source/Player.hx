@@ -23,9 +23,9 @@ class Player extends Character
 		super(X, Y);
 		
 		bulletArray = playerBulletArray;
-		playerMaxVel = 510;
-		_playerSpeed = 3800;
-		_playerDrag = 1610;
+		playerMaxVel = 560;
+		_playerSpeed = 4400;
+		_playerDrag = 2310;
 		
 		maxVelocity.set(playerMaxVel, playerMaxVel);
 		drag.set(_playerDrag, _playerDrag);
