@@ -21,6 +21,9 @@ class PlayState extends FlxState
 	private var playerBullets:FlxTypedGroup<Bullet>;
 	private var enemyBullets:FlxTypedGroup<Bullet>;
 	
+	private var speedTimer:Float = 0;
+	private var txtTimer:FlxText;
+	
 	public var _map:TiledLevel;
 	
 	public var _grpEnemies:FlxTypedGroup<Enemy>;
@@ -74,6 +77,11 @@ class PlayState extends FlxState
 		txtHealth.scrollFactor.set(0, 0);
 		add(txtHealth);
 		
+		txtTimer = new FlxText(0, 10, 0, "", 32);
+		txtTimer.scrollFactor.set(0, 0);
+		txtTimer.screenCenter(X);
+		add(txtTimer);
+		
 		FlxG.worldBounds.set(_map.width, _map.height);
 		
 		super.create();
@@ -91,6 +99,10 @@ class PlayState extends FlxState
 		playerBullets.forEachAlive(checkBulletOverlap);
 		
 		super.update(elapsed);
+		
+		speedTimer += FlxG.elapsed;
+		txtTimer.text = "Time: " + FlxMath.roundDecimal(speedTimer, 2);
+		
 		
 		txtHealth.text = Std.string(FlxMath.roundDecimal(_player.health, 2));
 		
@@ -149,6 +161,9 @@ class PlayState extends FlxState
 			
 			if (FlxG.overlap(b, enemy) && b.bType == "Player" && !enemy.isDead)
 			{
+				var healthAdd = FlxG.random.float(0.1, 0.35);
+				FlxG.log.add(healthAdd);
+				_player.health += healthAdd;
 				enemy.health -= 1;
 				enemy.shot(b.velocity.x, b.velocity.y);
 				b.kill();

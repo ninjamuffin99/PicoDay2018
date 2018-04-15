@@ -1,6 +1,5 @@
 Need to do:
 	windows
-	maybe make it so that the player only has one HP also
 	
 Done:
 	enemies die from one shot

@@ -17,6 +17,7 @@ class Player extends Character
 	public static var mouseRot:Float;
 	public var playerMovePosition:FlxPoint = new FlxPoint();
 	private var moveTime:Int = 0;
+	public var maxHealth:Float = 10;
 
 	public function new(?X:Float=0, ?Y:Float=0, playerBulletArray:FlxTypedGroup<Bullet>) 
 	{
@@ -37,9 +38,14 @@ class Player extends Character
 		
 		FlxG.watch.addQuick("rads: ", curRads);
 		
+		if (health > maxHealth)
+		{
+			health = maxHealth;
+		}
+		
 		if (health < 10)
 		{
-			health += 0.1 * FlxG.elapsed;
+			health += 0.05 * FlxG.elapsed;
 		}
 		
 		
