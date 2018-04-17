@@ -35,6 +35,13 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
+		/*
+		#if flash
+			FlxG.sound.playMusic("assets/music/234111_Pico_factory.mp3");
+		#else
+			FlxG.sound.playMusic("assets/music/234111_Pico_factory.ogg");
+		#end
+		*/
 		_grpEnemies = new FlxTypedGroup<Enemy>();
 		_grpLockers = new FlxTypedGroup<Locker>();
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
@@ -161,7 +168,7 @@ class PlayState extends FlxState
 			
 			if (FlxG.overlap(b, enemy) && b.bType == "Player" && !enemy.isDead)
 			{
-				var healthAdd = FlxG.random.float(0.1, 0.35);
+				var healthAdd = FlxG.random.float(0.25, 0.55);
 				FlxG.log.add(healthAdd);
 				_player.health += healthAdd;
 				enemy.health -= 1;

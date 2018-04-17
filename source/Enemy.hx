@@ -25,6 +25,10 @@ class Enemy extends Character
 	{
 		super(X, Y);
 		
+		firerate = 15;
+		health = 1;
+				
+		
 		if (Path != null)
 		{
 			patrolPath = Path;

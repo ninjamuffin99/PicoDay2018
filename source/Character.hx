@@ -91,7 +91,7 @@ class Character extends FlxSprite
 	{
 		if (canFire)
 		{
-			var newBullet = new Bullet(getMidpoint().x, getMidpoint().y, 1200, 60, curRads);
+			var newBullet = new Bullet(getMidpoint().x, getMidpoint().y, 1000, 60, curRads);
 			newBullet.accuracy = accuracy;
 			newBullet.bType = bullType;
 			bulletArray.add(newBullet);

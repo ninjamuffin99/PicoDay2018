@@ -228,9 +228,7 @@ class TiledLevel extends TiledMap
 			case "enemy":
 				var p:FlxPath = getPathData(o);
 				var enemy = new Enemy(x, y, p);
-				enemy.firerate = 10;
-				enemy.health = 1;
-				
+
 				state._grpEnemies.add(enemy);
 			case "lockers":
 				var locker = new Locker(x, y);

@@ -24,8 +24,8 @@ class Player extends Character
 		super(X, Y);
 		
 		bulletArray = playerBulletArray;
-		playerMaxVel = 560;
-		_playerSpeed = 4400;
+		playerMaxVel = 480;
+		_playerSpeed = 4000;
 		_playerDrag = 2310;
 		
 		maxVelocity.set(playerMaxVel, playerMaxVel);
@@ -49,7 +49,7 @@ class Player extends Character
 		}
 		
 		
-		if (moveTime <= 12)
+		if (moveTime <= 15)
 		{
 			moveTime = 0;
 			playerMovePosition = getPosition();
