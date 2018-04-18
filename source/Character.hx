@@ -26,6 +26,7 @@ class Character extends FlxSprite
 	private var curFirtime:Int = 0;
 	public var canFire:Bool = false;
 	public var isDead:Bool = false;
+	public var maxHealth:Float = 10;
 	
 	public var bulletArray:FlxTypedGroup<Bullet>;
 
@@ -36,22 +37,30 @@ class Character extends FlxSprite
 		health = 10;
 		
 		makeGraphic(64, 28);
+		resizeHitbox();
+		
+		drag.x = _playerDrag;
+		drag.y = _playerDrag;
+		maxVelocity.x = maxVelocity.y = playerMaxVel;
+	}
+	
+	private function resizeHitbox():Void
+	{
+		updateHitbox();
 		
 		width = 40;
 		height = 40;
 		offset.x = 12;
 		offset.y = -6;
 		
-		drag.x = _playerDrag;
-		drag.y = _playerDrag;
-		maxVelocity.x = maxVelocity.y = playerMaxVel;
-		
-		
 	}
-
+	
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
+		//for this to work, make sure you have FlxSprite's "isOnScreen()" modified so that it doesn't check if visible is true
+		visible = isOnScreen();
 		
 		rotation();
 		firingHandling();
@@ -79,7 +88,7 @@ class Character extends FlxSprite
 
 	private function rotation():Void
 	{
-		var rads:Float = Math.atan2(tartgetLook.y - this.y, tartgetLook.x - this.x);
+		var rads:Float = Math.atan2(tartgetLook.y - getMidpoint().y, tartgetLook.x - getMidpoint().x);
 		curRads = rads;
 		
 		var degs = FlxAngle.asDegrees(rads);
@@ -96,6 +105,14 @@ class Character extends FlxSprite
 			newBullet.bType = bullType;
 			bulletArray.add(newBullet);
 			canFire = false;
+			
+			var muzzFlash = new MuzzFlash(getMidpoint().x - (32 / 2), getMidpoint().y - (20 / 2));
+			var xdir = Math.cos(curRads);
+			var ydir = Math.sin(curRads);
+			muzzFlash.x += xdir * 35;
+			muzzFlash.y += ydir * 35;
+			FlxG.state.add(muzzFlash);
+			
 		}
 		
 	}

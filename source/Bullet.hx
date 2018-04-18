@@ -27,7 +27,13 @@ class Bullet extends FlxSprite
 	{
 		super(X, Y);
 		
-		makeGraphic(32, 20);
+		loadGraphic("assets/images/bulletSheet.png", true, 32, 20);
+		animation.add("play", [0, 1, 2], 12);
+		animation.play("play");
+		/*
+		setGraphicSize(Std.int(width * 1.3));
+		updateHitbox();
+		*/
 		width = 10;
 		height = 10;
 		offset.y = 5;

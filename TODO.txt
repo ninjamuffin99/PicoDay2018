@@ -1,6 +1,5 @@
 Need to do:
-	windows
+	
 	
 Done:
-	enemies die from one shot
-	when enemies die, they leave bodies
+	

@@ -3,15 +3,11 @@ package;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxPoint;
 import flixel.math.FlxVelocity;
 import flixel.text.FlxText;
-import flixel.ui.FlxButton;
 import flixel.math.FlxMath;
-import flixel.util.FlxTimer;
 
 class PlayState extends FlxState
 {
@@ -35,6 +31,7 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
+		FlxG.mouse.load("assets/images/cursor.png", 1.7, 6, 6);
 		/*
 		#if flash
 			FlxG.sound.playMusic("assets/music/234111_Pico_factory.mp3");
@@ -42,6 +39,23 @@ class PlayState extends FlxState
 			FlxG.sound.playMusic("assets/music/234111_Pico_factory.ogg");
 		#end
 		*/
+		
+		initObjects();
+		
+		
+		FlxG.camera.follow(_camTrack);
+		FlxG.camera.followLerp = 0.6;
+		
+		initHUD();
+		
+		FlxG.worldBounds.set(_map.width, _map.height);
+		
+		super.create();
+	}
+	
+	private function initObjects():Void
+	{
+		
 		_grpEnemies = new FlxTypedGroup<Enemy>();
 		_grpLockers = new FlxTypedGroup<Locker>();
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
@@ -50,16 +64,14 @@ class PlayState extends FlxState
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
-		add(_map.foregroundTiles);
+		//the _map.foregroundLayer is added later so that it's above the enemies and shit
 		add(_map.BGObjects);
 		add(_map.foregroundObjects);
 		add(_map.objectsLayer);
 		
 		playerBullets = new FlxTypedGroup<Bullet>();
-		add(playerBullets);
-		
 		enemyBullets = new FlxTypedGroup<Bullet>();
-		add(enemyBullets);
+		
 		
 		
 		_camTrack = new FlxObject(0, 0, 1, 1);
@@ -73,13 +85,18 @@ class PlayState extends FlxState
 		_player.accuracy = 0.5;
 		add(_player);
 		
+		add(playerBullets);
+		add(enemyBullets);
+		
+		add(_map.foregroundTiles);
+		
 		
 		_grpEnemies.forEach(bulletSet);
 		
-		
-		FlxG.camera.follow(_camTrack);
-		FlxG.camera.followLerp = 0.6;
-		
+	}
+	
+	private function initHUD():Void
+	{
 		txtHealth = new FlxText(10, 10, 0, "", 32);
 		txtHealth.scrollFactor.set(0, 0);
 		add(txtHealth);
@@ -88,10 +105,6 @@ class PlayState extends FlxState
 		txtTimer.scrollFactor.set(0, 0);
 		txtTimer.screenCenter(X);
 		add(txtTimer);
-		
-		FlxG.worldBounds.set(_map.width, _map.height);
-		
-		super.create();
 	}
 	
 	private function bulletSet(e:Enemy):Void
@@ -168,7 +181,7 @@ class PlayState extends FlxState
 			
 			if (FlxG.overlap(b, enemy) && b.bType == "Player" && !enemy.isDead)
 			{
-				var healthAdd = FlxG.random.float(0.25, 0.55);
+				var healthAdd = FlxG.random.float(0.45, 0.85);
 				FlxG.log.add(healthAdd);
 				_player.health += healthAdd;
 				enemy.health -= 1;

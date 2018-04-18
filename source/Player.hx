@@ -1,12 +1,8 @@
 package;
 
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxAngle;
 import flixel.math.FlxPoint;
-import flixel.system.FlxAssets.FlxGraphicAsset;
-import haxe.io.BytesOutput;
 
 /**
  * ...
@@ -17,7 +13,7 @@ class Player extends Character
 	public static var mouseRot:Float;
 	public var playerMovePosition:FlxPoint = new FlxPoint();
 	private var moveTime:Int = 0;
-	public var maxHealth:Float = 10;
+	
 
 	public function new(?X:Float=0, ?Y:Float=0, playerBulletArray:FlxTypedGroup<Bullet>) 
 	{
@@ -27,14 +23,32 @@ class Player extends Character
 		playerMaxVel = 480;
 		_playerSpeed = 4000;
 		_playerDrag = 2310;
+		maxHealth = 4.5;
 		
 		maxVelocity.set(playerMaxVel, playerMaxVel);
 		drag.set(_playerDrag, _playerDrag);
+		
+		loadGraphic("assets/images/picoSheet.png", true, 64, 28);
+		animation.add("idle", [0, 1, 2], 12);
+		animation.add("walk", [3, 4, 5, 6, 5, 4], 12);
+		animation.play("idle");
+		setGraphicSize(Std.int(width * 1.5));
+		
+		resizeHitbox();
 	}
 	
 	override public function update(elapsed:Float):Void 
 	{
 		super.update(elapsed);
+		
+		if (velocity.x != 0 || velocity.y != 0)
+		{
+			animation.play("walk");
+		}
+		else
+		{
+			animation.play("idle");
+		}
 		
 		FlxG.watch.addQuick("rads: ", curRads);
 		
@@ -43,9 +57,9 @@ class Player extends Character
 			health = maxHealth;
 		}
 		
-		if (health < 10)
+		if (health < maxHealth && (velocity.x != 0 || velocity.y != 0))
 		{
-			health += 0.05 * FlxG.elapsed;
+			health += 0.13 * FlxG.elapsed;
 		}
 		
 		
@@ -84,7 +98,6 @@ class Player extends Character
 		
 		if (_left || _right || _up || _down)
 		{
-			var mA:Float = 0;
 			if (_up)
 			{
 				acceleration.y = -_playerSpeed;

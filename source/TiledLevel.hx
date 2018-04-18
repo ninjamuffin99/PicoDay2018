@@ -96,7 +96,7 @@ class TiledLevel extends TiledMap
 			FlxG.log.add("CheckPoint5");
 			if (tileLayer.properties.contains("animated"))
 			{
-				var tileset = tilesets["level"];
+				var tileset = tilesets["mapTest"];
 				var specialTiles:Map<Int, TiledTilePropertySet> = new Map();
 				for (tileProp in tileset.tileProps)
 				{
@@ -125,6 +125,7 @@ class TiledLevel extends TiledMap
 				if (collidableTileLayers == null)
 					collidableTileLayers = new Array<FlxTilemap>();
 				
+				tilemap.angle = 5;
 				foregroundTiles.add(tilemap);
 				foregroundObjects.add(tilemap);
 				BGObjects.add(tilemap);
