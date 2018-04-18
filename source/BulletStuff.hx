@@ -7,7 +7,7 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * ...
  * @author 
  */
-class MuzzFlash extends FlxSprite 
+class BulletStuff extends FlxSprite 
 {
 	private var lifeSpan = 4;
 	private var counter = 0;
@@ -18,6 +18,7 @@ class MuzzFlash extends FlxSprite
 		loadGraphic("assets/images/muzzFlashSheet.png", true, 40, 40);
 		animation.add('play', [0, 1, 2, 3, 4], 12, false);
 		animation.play('play');
+		drag.set(10, 10);
 		/*
 		setGraphicSize(Std.int(width * 1.5));
 		updateHitbox();

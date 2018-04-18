@@ -103,14 +103,19 @@ class Character extends FlxSprite
 			var newBullet = new Bullet(getMidpoint().x, getMidpoint().y, 1000, 60, curRads);
 			newBullet.accuracy = accuracy;
 			newBullet.bType = bullType;
+			newBullet.velocity.x += velocity.x * 0.2;
+			newBullet.velocity.y += velocity.y * 0.2;
 			bulletArray.add(newBullet);
 			canFire = false;
 			
-			var muzzFlash = new MuzzFlash(getMidpoint().x - (32 / 2), getMidpoint().y - (20 / 2));
+			var muzzFlash = new BulletStuff(getMidpoint().x - (32 / 2), getMidpoint().y - (20 / 2));
 			var xdir = Math.cos(curRads);
 			var ydir = Math.sin(curRads);
 			muzzFlash.x += xdir * 35;
 			muzzFlash.y += ydir * 35;
+			muzzFlash.velocity.set(velocity.x * 0.15, velocity.y * 0.15);
+			muzzFlash.angle = FlxAngle.asDegrees(curRads);
+			
 			FlxG.state.add(muzzFlash);
 			
 		}
