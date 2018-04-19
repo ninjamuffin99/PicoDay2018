@@ -62,7 +62,7 @@ class PlayState extends FlxState
 		_grpLockers = new FlxTypedGroup<Locker>();
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
 		
-		_map = new TiledLevel("assets/data/level1.tmx", this);
+		_map = new TiledLevel("assets/data/mapTest.tmx", this);
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
