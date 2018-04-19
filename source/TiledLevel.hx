@@ -235,11 +235,12 @@ class TiledLevel extends TiledMap
 				var locker = new Locker(x, y);
 				locker.makeGraphic(o.width, o.height, FlxColor.GRAY);
 				state._grpLockers.add(locker);
-			/*	
-			case "floor":
-				var floor = new FlxObject(x, y, o.width, o.height);
-				state.floor = floor;
-				
+			
+			case "schoolobject":
+				var schoolObject = new SchoolObject(x, y, o.name);
+				schoolObject.angle = o.angle;
+				state._grpCollidableObjects.add(schoolObject);
+			/*		
 			case "oob":
 				var oob = new FlxObject(x, y, o.width, o.height);
 				state._grpOOB.add(oob);

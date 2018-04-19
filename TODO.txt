@@ -1,5 +1,10 @@
 Need to do:
+	More levels
+	Loading more levels
+	make health visual
+	dialogue system thingie going
 	
-	
+WIP:
+	props and level shit
 Done:
-	
+	when bullets collide, shows an animation

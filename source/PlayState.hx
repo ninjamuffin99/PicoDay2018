@@ -3,6 +3,7 @@ package;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxVelocity;
@@ -22,6 +23,7 @@ class PlayState extends FlxState
 	
 	public var _map:TiledLevel;
 	
+	public var _grpEffects:FlxTypedGroup<FlxSprite>;
 	public var _grpEnemies:FlxTypedGroup<Enemy>;
 	public var _grpLockers:FlxTypedGroup<Locker>;
 	public var _grpCollidableObjects:FlxTypedGroup<FlxBasic>;
@@ -55,12 +57,12 @@ class PlayState extends FlxState
 	
 	private function initObjects():Void
 	{
-		
+		_grpEffects = new FlxTypedGroup<FlxSprite>();
 		_grpEnemies = new FlxTypedGroup<Enemy>();
 		_grpLockers = new FlxTypedGroup<Locker>();
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
 		
-		_map = new TiledLevel("assets/data/mapTest.tmx", this);
+		_map = new TiledLevel("assets/data/level1.tmx", this);
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
@@ -77,6 +79,7 @@ class PlayState extends FlxState
 		_camTrack = new FlxObject(0, 0, 1, 1);
 		add(_camTrack);
 		
+		add(_grpEffects);
 		add(_grpEnemies);
 		add(_grpCollidableObjects);
 		_grpCollidableObjects.add(_grpLockers);
@@ -150,10 +153,8 @@ class PlayState extends FlxState
 			dx *= shiftChange;
 			dy *= shiftChange;
 		}
-		
 		_camTrack.x = _player.x - dx;
 		_camTrack.y = _player.y - dy;
-		
 		
 		_grpEnemies.forEachAlive(look);
 		
@@ -165,15 +166,22 @@ class PlayState extends FlxState
 	{
 		if (_map.collideWithLevel(b))
 		{
+			var impact:BulletStuff = new BulletStuff(b.x, b.y, "impact");
+			impact.angle = b.angle;
+			_grpEffects.add(impact);
+			
 			b.kill();
 		}
 		
 		if (FlxG.overlap(b, _player) && b.bType == "Enemy")
 		{
+			var impact:BulletStuff = new BulletStuff(b.x, b.y, "impact");
+			impact.angle = b.angle;
+			_grpEffects.add(impact);
+			
 			b.kill();
 			_player.hurt(FlxG.random.float(0.5, 1.5));
 		}
-		
 		
 		for (i in 0..._grpEnemies.members.length)
 		{
