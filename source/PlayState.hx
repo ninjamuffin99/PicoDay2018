@@ -17,6 +17,7 @@ class PlayState extends FlxState
 	private var testEnemy:Enemy;
 	private var playerBullets:FlxTypedGroup<Bullet>;
 	private var enemyBullets:FlxTypedGroup<Bullet>;
+	private var _dialogueListener:DialogueListener;
 	
 	private var speedTimer:Float = 0;
 	private var txtTimer:FlxText;
@@ -27,6 +28,7 @@ class PlayState extends FlxState
 	public var _grpEnemies:FlxTypedGroup<Enemy>;
 	public var _grpLockers:FlxTypedGroup<Locker>;
 	public var _grpCollidableObjects:FlxTypedGroup<FlxBasic>;
+	public var _grpDialogues:FlxTypedGroup<DialogueTrigger>;
 	
 	public var txtHealth:FlxText;
 	
@@ -61,6 +63,7 @@ class PlayState extends FlxState
 		_grpEnemies = new FlxTypedGroup<Enemy>();
 		_grpLockers = new FlxTypedGroup<Locker>();
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
+		_grpDialogues = new FlxTypedGroup<DialogueTrigger>();
 		
 		_map = new TiledLevel("assets/data/mapTest.tmx", this);
 		
@@ -75,7 +78,6 @@ class PlayState extends FlxState
 		enemyBullets = new FlxTypedGroup<Bullet>();
 		
 		
-		
 		_camTrack = new FlxObject(0, 0, 1, 1);
 		add(_camTrack);
 		
@@ -83,6 +85,8 @@ class PlayState extends FlxState
 		add(_grpEnemies);
 		add(_grpCollidableObjects);
 		_grpCollidableObjects.add(_grpLockers);
+		add(_grpDialogues);
+		
 		
 		_player = new Player(70, 70, playerBullets);
 		_player.accuracy = 0.5;
@@ -95,11 +99,15 @@ class PlayState extends FlxState
 		
 		
 		_grpEnemies.forEach(bulletSet);
-		
 	}
 	
 	private function initHUD():Void
 	{
+		_dialogueListener = new DialogueListener(0, 0);
+		_dialogueListener.scrollFactor.set();
+		add(_dialogueListener);
+		
+		
 		txtHealth = new FlxText(10, 10, 0, "", 32);
 		txtHealth.scrollFactor.set(0, 0);
 		add(txtHealth);
@@ -117,6 +125,16 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		if (FlxG.overlap(_player, _grpDialogues))
+		{
+			if (!_dialogueListener.runningText)
+			{
+				_dialogueListener.newDialogue();
+			}
+			
+			
+		}
+		
 		//THEsd
 		enemyBullets.forEachAlive(checkBulletOverlap);
 		playerBullets.forEachAlive(checkBulletOverlap);

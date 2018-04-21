@@ -240,6 +240,9 @@ class TiledLevel extends TiledMap
 				var schoolObject = new SchoolObject(x, y, o.name);
 				schoolObject.angle = o.angle;
 				state._grpCollidableObjects.add(schoolObject);
+			case "dialogue":
+				var dialogue = new DialogueTrigger(x, y, o.width, o.height);
+				state._grpDialogues.add(dialogue);
 			/*		
 			case "oob":
 				var oob = new FlxObject(x, y, o.width, o.height);
