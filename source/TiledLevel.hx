@@ -42,7 +42,7 @@ class TiledLevel extends TiledMap
 	// Sprites of images layers
 	public var imagesLayer:FlxGroup;
 	
-	public function new(tiledLevel:Dynamic, state:PlayState)
+	public function new(tiledLevel:Dynamic, state:LevelBaseState)
 	{
 		super(tiledLevel);
 		
@@ -147,7 +147,7 @@ class TiledLevel extends TiledMap
 		return special;
 	}
 	
-	public function loadObjects(state:PlayState)
+	public function loadObjects(state:LevelBaseState)
 	{
 		for (layer in layers)
 		{
@@ -215,7 +215,7 @@ class TiledLevel extends TiledMap
 		backgroundLayer.add(decoSprite);
 	}
 	
-	private function loadObject(state:PlayState, o:TiledObject, g:TiledObjectLayer, group:FlxGroup)
+	private function loadObject(state:LevelBaseState, o:TiledObject, g:TiledObjectLayer, group:FlxGroup)
 	{
 		var x:Int = o.x;
 		var y:Int = o.y;

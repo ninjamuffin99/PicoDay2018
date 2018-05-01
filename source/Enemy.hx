@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxAngle;
 import flixel.math.FlxVelocity;
@@ -27,7 +28,12 @@ class Enemy extends Character
 		
 		firerate = 15;
 		health = 1;
-				
+		
+		loadGraphic("assets/images/enemy1Sprite1.png", true, 64, 28);
+		setGraphicSize(Std.int(width * 1.5));
+
+		resizeHitbox();
+		
 		
 		if (Path != null)
 		{
@@ -41,14 +47,20 @@ class Enemy extends Character
 	{
 		super.update(elapsed);
 		
-		if (!seesPlayer && (velocity.x != 0 || velocity.y != 0))
+		if ((!seesPlayer || isDead ) && (velocity.x != 0 || velocity.y != 0))
 		{
 			var rads:Float = Math.atan2(velocity.y, velocity.x);
 			//curRads = rads;
 			
 			var degs = FlxAngle.asDegrees(rads);
-			//FlxG.watch.addQuick("Degs/Angle", degs);
-			angle = degs + 90;
+			FlxG.watch.addQuick("Degs/Angle", degs);
+			
+			if (isDead)
+			{
+				angle = degs - 90;
+			}
+			else
+				angle = degs + 90;
 		}
 		
 		if (path != null && !isDead)
@@ -68,7 +80,8 @@ class Enemy extends Character
 	
 	public function shot(velX:Float, velY:Float):Void
 	{
-		makeGraphic(64, 80, FlxColor.LIME);
+		//makeGraphic(64, 80, FlxColor.LIME);
+		loadGraphic("assets/images/enemy1Sprite2.png", true, 64, 80);
 		if (path != null)
 		{
 			path.cancel();

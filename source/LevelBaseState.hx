@@ -10,7 +10,7 @@ import flixel.math.FlxVelocity;
 import flixel.text.FlxText;
 import flixel.math.FlxMath;
 
-class PlayState extends FlxState
+class LevelBaseState extends FlxState
 {
 	public var _player:Player;
 	public var player_start:FlxObject;
