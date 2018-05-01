@@ -66,7 +66,7 @@ class PlayState extends FlxState
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
 		_grpDialogues = new FlxTypedGroup<DialogueTrigger>();
 		
-		_map = new TiledLevel("assets/data/level1.tmx", this);
+		_map = new TiledLevel("assets/data/level2.tmx", this);
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
