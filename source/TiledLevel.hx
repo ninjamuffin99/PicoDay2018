@@ -243,6 +243,11 @@ class TiledLevel extends TiledMap
 			case "dialogue":
 				var dialogue = new DialogueTrigger(x, y, o.width, o.height);
 				state._grpDialogues.add(dialogue);
+			case "player_start":
+				state.player_start = new FlxObject(x, y, 1, 1);
+				group.add(state.player_start);
+				FlxG.log.add("Player object added");
+			
 			/*		
 			case "oob":
 				var oob = new FlxObject(x, y, o.width, o.height);
@@ -251,10 +256,6 @@ class TiledLevel extends TiledMap
 			case "pickup":
 				var pickup = new PickupSpot(x, y, o.properties.get("itemType"));
 				state._grpPickupSpots.add(pickup);
-			case "player_start":
-				state._player = new Player(x, y);
-				group.add(state._player);
-				FlxG.log.add("Player object added");
 			
 			case "coin":
 				var tileset = g.map.getGidOwner(o.gid);

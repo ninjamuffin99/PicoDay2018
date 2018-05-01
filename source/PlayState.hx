@@ -12,7 +12,8 @@ import flixel.math.FlxMath;
 
 class PlayState extends FlxState
 {
-	private var _player:Player;
+	public var _player:Player;
+	public var player_start:FlxObject;
 	private var _camTrack:FlxObject;
 	private var testEnemy:Enemy;
 	private var playerBullets:FlxTypedGroup<Bullet>;
@@ -65,7 +66,7 @@ class PlayState extends FlxState
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
 		_grpDialogues = new FlxTypedGroup<DialogueTrigger>();
 		
-		_map = new TiledLevel("assets/data/mapTest.tmx", this);
+		_map = new TiledLevel("assets/data/level1.tmx", this);
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
@@ -87,8 +88,7 @@ class PlayState extends FlxState
 		_grpCollidableObjects.add(_grpLockers);
 		add(_grpDialogues);
 		
-		
-		_player = new Player(70, 70, playerBullets);
+		_player = new Player(player_start.x, player_start.y, playerBullets);
 		_player.accuracy = 0.5;
 		add(_player);
 		
@@ -130,9 +130,15 @@ class PlayState extends FlxState
 			if (!_dialogueListener.runningText)
 			{
 				_dialogueListener.newDialogue();
+			}	
+		}
+		
+		if (FlxG.keys.justPressed.E)
+		{
+			if (_dialogueListener.runningText)
+			{
+				_dialogueListener.endDialogue();
 			}
-			
-			
 		}
 		
 		//THEsd
