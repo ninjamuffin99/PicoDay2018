@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="74" height="113" tilewidth="32" tileheight="32" infinite="0" nextobjectid="122">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="74" height="113" tilewidth="32" tileheight="32" infinite="0" nextobjectid="132">
  <tileset firstgid="1" name="goodTiles" tilewidth="32" tileheight="32" tilecount="36" columns="9">
   <image source="tile_temple_0.png" width="288" height="128"/>
   <tile id="0">
@@ -34,24 +34,47 @@
   <object id="96" name="player_start" type="player_start" x="1816" y="2136"/>
  </objectgroup>
  <objectgroup name="Enemies">
-  <object id="99" name="enemy" type="enemy" x="1789.67" y="1521.67"/>
-  <object id="100" name="enemy" type="enemy" x="1928" y="1913.33"/>
-  <object id="101" name="enemy" type="enemy" x="1613.33" y="1598.67"/>
-  <object id="102" name="enemy" type="enemy" x="2238.67" y="1433.33"/>
-  <object id="104" name="enemy" type="enemy" x="1729.33" y="2405.33"/>
+  <object id="99" name="stupidIdiot" type="enemy" x="1777.67" y="1508.67"/>
+  <object id="100" name="leEpicMan" type="enemy" x="1928" y="1913.33"/>
+  <object id="101" name="enemy" type="enemy" x="1662.33" y="1697.67"/>
+  <object id="102" name="coolBoy" type="enemy" x="2142.67" y="1281.33"/>
+  <object id="104" name="guy2" type="enemy" x="1729.33" y="2405.33"/>
   <object id="105" name="enemy" type="enemy" x="1182" y="2108"/>
   <object id="106" name="enemy" type="enemy" x="1194" y="2374"/>
   <object id="107" name="enemy" type="enemy" x="956" y="2170"/>
-  <object id="108" name="enemy" type="enemy" x="1610" y="1302"/>
-  <object id="109" name="enemy" type="enemy" x="986" y="2024"/>
+  <object id="108" name="enemy" type="enemy" x="1658" y="1149"/>
+  <object id="109" name="enemy" type="enemy" x="954" y="2044"/>
   <object id="110" name="enemy" type="enemy" x="532" y="1744"/>
-  <object id="111" name="enemy" type="enemy" x="838" y="1316"/>
-  <object id="112" name="enemy" type="enemy" x="1636" y="1008"/>
+  <object id="111" name="lolEpic" type="enemy" x="838" y="1316"/>
+  <object id="112" name="enemy" type="enemy" x="1650" y="1012"/>
   <object id="113" name="enemy" type="enemy" x="1148" y="784"/>
-  <object id="116" name="enemy" type="enemy" x="1105.33" y="1506.67"/>
+  <object id="116" name="enemy" type="enemy" x="1111.33" y="1504.67"/>
   <object id="117" name="enemy" type="enemy" x="1385.33" y="1492"/>
   <object id="118" name="enemy" type="enemy" x="531" y="1920"/>
-  <object id="120" name="enemy" type="enemy" x="544" y="2062"/>
-  <object id="121" name="enemy" type="enemy" x="1725.33" y="2276"/>
+  <object id="120" name="baddude" type="enemy" x="544" y="2062"/>
+  <object id="121" name="guy1" type="enemy" x="1723.83" y="2262"/>
+  <object id="122" name="enemy" type="enemy" x="2081.33" y="1881.33"/>
+  <object id="123" name="guy1" x="1595" y="2263">
+   <polyline points="0,0 -33,17 -33,132 -8,150 353,149 377,134 374,11 338,-3"/>
+  </object>
+  <object id="124" name="guy2" x="1948.5" y="2418.5">
+   <polyline points="0,0 29.5,-17.5 27,-139.5 2,-161 -353.5,-164 -379,-139 -381,-28 -356.5,-1"/>
+  </object>
+  <object id="125" name="stupidIdiot" x="1775" y="1477">
+   <polyline points="0,0 19,-15 173,-13 195,10 207,303 186,325 7,325 -24,307"/>
+  </object>
+  <object id="127" name="coolBoy" x="2231" y="1276">
+   <polyline points="0,0 32,26 35,271 15,293 -144,294 -169,275 -168,39 -136,6"/>
+  </object>
+  <object id="128" name="enemy" type="enemy" x="1380" y="1138"/>
+  <object id="129" name="leEpicMan" x="1959" y="1890">
+   <polyline points="0,0 15,12 12,94 -10,113 -447,107 -455,94 -455,-2 -433,-13"/>
+  </object>
+  <object id="130" name="baddude" x="504" y="2210">
+   <polyline points="0,0 20,32 176,34 204,4 206,-296 178,-320 58,-322 28,-290"/>
+  </object>
+  <object id="131" name="lolEpic" x="786" y="1618">
+   <polyline points="0,0 22,22 190,20 214,-4 216,-466 184,-486 48,-486 20,-464"/>
+  </object>
  </objectgroup>
 </map>

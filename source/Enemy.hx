@@ -29,7 +29,9 @@ class Enemy extends Character
 		firerate = 15;
 		health = 1;
 		
-		loadGraphic("assets/images/enemy1Sprite1.png", true, 64, 28);
+		loadGraphic("assets/images/enemy1Sheet.png", true, 64, 28);
+		animation.add("idle", [0, 1, 2], 12);
+		animation.play("idle");
 		setGraphicSize(Std.int(width * 1.5));
 
 		resizeHitbox();
@@ -47,20 +49,21 @@ class Enemy extends Character
 	{
 		super.update(elapsed);
 		
-		if ((!seesPlayer || isDead ) && (velocity.x != 0 || velocity.y != 0))
+		if ((!seesPlayer || isDead) && (velocity.x != 0 || velocity.y != 0))
 		{
 			var rads:Float = Math.atan2(velocity.y, velocity.x);
 			//curRads = rads;
 			
 			var degs = FlxAngle.asDegrees(rads);
-			FlxG.watch.addQuick("Degs/Angle", degs);
 			
 			if (isDead)
 			{
 				angle = degs - 90;
 			}
 			else
+			{
 				angle = degs + 90;
+			}
 		}
 		
 		if (path != null && !isDead)
@@ -81,7 +84,9 @@ class Enemy extends Character
 	public function shot(velX:Float, velY:Float):Void
 	{
 		//makeGraphic(64, 80, FlxColor.LIME);
-		loadGraphic("assets/images/enemy1Sprite2.png", true, 64, 80);
+		loadGraphic("assets/images/enemyFallenSheet.png", true, 64, 80);
+		animation.add("ded", [0, 1, 2], 8);
+		animation.play("ded");
 		if (path != null)
 		{
 			path.cancel();
