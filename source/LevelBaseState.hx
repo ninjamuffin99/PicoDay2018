@@ -66,7 +66,7 @@ class LevelBaseState extends FlxState
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
 		_grpDialogues = new FlxTypedGroup<DialogueTrigger>();
 		
-		_map = new TiledLevel("assets/data/level2.tmx", this);
+		_map = new TiledLevel("assets/data/level3.tmx", this);
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
@@ -191,7 +191,20 @@ class LevelBaseState extends FlxState
 		if (_map.collideWithLevel(b))
 		{
 			var impact:BulletStuff = new BulletStuff(b.x, b.y, "impact");
-			impact.angle = b.angle;
+			switch(b.touching)
+			{
+				case FlxObject.LEFT:
+					impact.angle = 180;
+				case FlxObject.RIGHT:
+					impact.x -= 29;
+				case FlxObject.UP:
+					impact.angle = -90;
+				case FlxObject.DOWN:
+					impact.angle = 90;
+					impact.y -= 29;
+			}
+			
+			//impact.angle = b.angle;
 			_grpEffects.add(impact);
 			
 			b.kill();
@@ -199,9 +212,12 @@ class LevelBaseState extends FlxState
 		
 		if (FlxG.overlap(b, _player) && b.bType == "Enemy")
 		{
+			
 			var impact:BulletStuff = new BulletStuff(b.x, b.y, "impact");
+			
 			impact.angle = b.angle;
 			_grpEffects.add(impact);
+			
 			
 			b.kill();
 			_player.hurt(FlxG.random.float(0.5, 1.5));
