@@ -42,6 +42,8 @@ class LevelBaseState extends FlxState
 		"assets/data/level5.tmx"
 	];
 	
+	public var enemiesArray:Array<FlxTypedGroup<Enemy>> = [];
+	
 	public var curLevel:Int = 0;
 	
 	
@@ -76,6 +78,8 @@ class LevelBaseState extends FlxState
 		_grpLockers = new FlxTypedGroup<Locker>();
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
 		_grpDialogues = new FlxTypedGroup<DialogueTrigger>();
+		
+		enemiesArray.push(_grpEnemies);
 		
 		_map = new TiledLevel(levelsArray[curLevel], this);
 		
@@ -120,11 +124,11 @@ class LevelBaseState extends FlxState
 		remove(_map.foregroundObjects);
 		remove(_map.objectsLayer);
 		remove(_map.foregroundTiles);
-		remove(_grpEnemies);
 		
-		_grpEnemies = new FlxTypedGroup<Enemy>();
+		_grpEnemies.forEachExists(killEnemies);
 		
 		_map = new TiledLevel(levelsArray[2], this);
+		_grpEnemies.forEach(bulletSet);
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
@@ -133,10 +137,13 @@ class LevelBaseState extends FlxState
 		add(_map.foregroundObjects);
 		add(_map.objectsLayer);
 		
-		add(_grpEnemies);
-		
 		add(_map.foregroundTiles);
 		
+	}
+	
+	private function killEnemies(e:Enemy):Void
+	{
+		_grpEnemies.remove(e);
 	}
 	
 	private function initHUD():Void
