@@ -244,8 +244,16 @@ class TiledLevel extends TiledMap
 				var dialogue = new DialogueTrigger(x, y, o.width, o.height);
 				state._grpDialogues.add(dialogue);
 			case "player_start":
-				state.player_start = new FlxObject(x, y, 1, 1);
-				group.add(state.player_start);
+				if (state._player != null)
+				{
+					state._player.setPosition(x, y);
+				}
+				else
+				{
+					state.player_start = new FlxObject(x, y, 1, 1);
+					group.add(state.player_start);
+				}
+				
 				FlxG.log.add("Player object added");
 			
 			/*		

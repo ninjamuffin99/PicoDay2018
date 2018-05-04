@@ -100,6 +100,11 @@ class Character extends FlxSprite
 	{
 		if (canFire)
 		{
+			if (bullType == "Enemy")
+			{
+				FlxG.log.add("enemy Fired");
+			}
+			
 			var newBullet = new Bullet(getMidpoint().x, getMidpoint().y, 1000, 60, curRads);
 			newBullet.accuracy = accuracy;
 			newBullet.bType = bullType;

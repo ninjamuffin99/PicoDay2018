@@ -33,6 +33,17 @@ class LevelBaseState extends FlxState
 	
 	public var txtHealth:FlxText;
 	
+	public var levelsArray:Array<String> =
+	[
+		"assets/data/level1.tmx",
+		"assets/data/level2.tmx",
+		"assets/data/level3.tmx",
+		"assets/data/level4.tmx",
+		"assets/data/level5.tmx"
+	];
+	
+	public var curLevel:Int = 0;
+	
 	
 	override public function create():Void
 	{
@@ -66,7 +77,7 @@ class LevelBaseState extends FlxState
 		_grpCollidableObjects = new FlxTypedGroup<FlxBasic>();
 		_grpDialogues = new FlxTypedGroup<DialogueTrigger>();
 		
-		_map = new TiledLevel("assets/data/level3.tmx", this);
+		_map = new TiledLevel(levelsArray[curLevel], this);
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
@@ -101,6 +112,33 @@ class LevelBaseState extends FlxState
 		_grpEnemies.forEach(bulletSet);
 	}
 	
+	private function reloadMap():Void
+	{
+		remove(_map.backgroundLayer);
+		remove(_map.imagesLayer);
+		remove(_map.BGObjects);
+		remove(_map.foregroundObjects);
+		remove(_map.objectsLayer);
+		remove(_map.foregroundTiles);
+		remove(_grpEnemies);
+		
+		_grpEnemies = new FlxTypedGroup<Enemy>();
+		
+		_map = new TiledLevel(levelsArray[2], this);
+		
+		add(_map.backgroundLayer);
+		add (_map.imagesLayer);
+		//the _map.foregroundLayer is added later so that it's above the enemies and shit
+		add(_map.BGObjects);
+		add(_map.foregroundObjects);
+		add(_map.objectsLayer);
+		
+		add(_grpEnemies);
+		
+		add(_map.foregroundTiles);
+		
+	}
+	
 	private function initHUD():Void
 	{
 		_dialogueListener = new DialogueListener(0, 0);
@@ -125,6 +163,11 @@ class LevelBaseState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
+		if (FlxG.keys.justPressed.G)
+		{
+			reloadMap();
+		}
+		
 		if (FlxG.overlap(_player, _grpDialogues))
 		{
 			if (!_dialogueListener.runningText)
