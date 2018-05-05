@@ -60,7 +60,7 @@ class Character extends FlxSprite
 		super.update(elapsed);
 		
 		//for this to work, make sure you have FlxSprite's "isOnScreen()" modified so that it doesn't check if visible is true
-		visible = isOnScreen();
+		set_visible(isOnScreen());
 		
 		rotation();
 		firingHandling();

@@ -9,6 +9,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxVelocity;
 import flixel.text.FlxText;
 import flixel.math.FlxMath;
+import flixel.util.FlxColor;
 
 class LevelBaseState extends FlxState
 {
@@ -128,6 +129,7 @@ class LevelBaseState extends FlxState
 		
 		_grpEnemies.forEachExists(killEnemies);
 		
+		_player.health += 1.5;
 		
 		if (direction == FlxObject.UP)
 		{
@@ -190,10 +192,16 @@ class LevelBaseState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.justPressed.UP)
-			reloadMap(FlxObject.UP);
+		if (FlxG.overlap(_player, levelExit))
+		{
+			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function()
+			{
+				reloadMap(FlxObject.UP);
+				FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
+			});
+		}
 		else if (FlxG.keys.justPressed.DOWN)
-			reloadMap(FlxObject.DOWN);
+			//reloadMap(FlxObject.DOWN);
 		
 		if (FlxG.overlap(_player, _grpDialogues))
 		{
