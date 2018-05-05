@@ -26,7 +26,7 @@ class DialogueListener extends FlxSpriteGroup
 		dialogueBox.makeGraphic(FlxG.width, 100, FlxColor.BLACK);
 		add(dialogueBox);
 		
-		dialogueText = new FlxTypeText(dialogueBox.x + 32, dialogueBox.y + 32, Std.int(dialogueBox.width - 32), "Hey this is a test lmaooo I don't know what else to type, so I'm just going to keep going and going", 16);
+		dialogueText = new FlxTypeText(dialogueBox.x + 32, dialogueBox.y + 32, Std.int(dialogueBox.width - 32), "WASD to move. \nMouse to shoot\n Kill all enemies then head to stairs", 16);
 		add(dialogueText);
 	}
 	

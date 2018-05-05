@@ -13,6 +13,7 @@ import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.addons.editors.tiled.TiledTileSet;
 import flixel.addons.editors.tiled.TiledTilePropertySet;
 import flixel.group.FlxGroup;
+import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.addons.tile.FlxTilemapExt;
 import flixel.addons.tile.FlxTileSpecial;
@@ -46,7 +47,7 @@ class TiledLevel extends TiledMap
 	{
 		super(tiledLevel);
 		
-		FlxG.log.add("CheckPoint1");
+		//FlxG.log.add("CheckPoint1");
 		
 		imagesLayer = new FlxGroup();
 		foregroundTiles = new FlxGroup();
@@ -59,13 +60,13 @@ class TiledLevel extends TiledMap
 		
 		loadImages();
 		loadObjects(state);
-		FlxG.log.add("CheckPoint2");
+		//FlxG.log.add("CheckPoint2");
 		// Load Tile Maps
 		for (layer in layers)
 		{
 			if (layer.type != TiledLayerType.TILE) continue;
 			var tileLayer:TiledTileLayer = cast layer;
-			FlxG.log.add("CheckPoint3");
+			//FlxG.log.add("CheckPoint3");
 			var tileSheetName:String = tileLayer.properties.get("tileset");
 			
 			if (tileSheetName == null)
@@ -80,7 +81,7 @@ class TiledLevel extends TiledMap
 					break;
 				}
 			}
-			FlxG.log.add("CheckPoint4");
+			//FlxG.log.add("CheckPoint4");
 			
 			if (tileSet == null)
 				throw "Tileset '" + tileSheetName + " not found. Did you misspell the 'tilesheet' property in " + tileLayer.name + "' layer?";
@@ -93,7 +94,7 @@ class TiledLevel extends TiledMap
 			tilemap.loadMapFromArray(tileLayer.tileArray, width, height, processedPath,
 				tileSet.tileWidth, tileSet.tileHeight, OFF, tileSet.firstGID, 1, 1);
 			
-			FlxG.log.add("CheckPoint5");
+			//FlxG.log.add("CheckPoint5");
 			if (tileLayer.properties.contains("animated"))
 			{
 				var tileset = tilesets["mapTest"];
@@ -132,7 +133,7 @@ class TiledLevel extends TiledMap
 				collidableTileLayers.push(tilemap);
 			}
 		}
-		FlxG.log.add("CheckPointFinal?");
+		//FlxG.log.add("CheckPointFinal?");
 	}
 
 	private function getAnimatedTile(props:TiledTilePropertySet, tileset:TiledTileSet):FlxTileSpecial
@@ -231,6 +232,7 @@ class TiledLevel extends TiledMap
 				var enemy = new Enemy(x, y, p);
 
 				state._grpEnemies.add(enemy);
+				state.totalEnemeis += 1;
 			case "lockers":
 				var locker = new Locker(x, y);
 				locker.makeGraphic(o.width, o.height, FlxColor.GRAY);
@@ -248,11 +250,14 @@ class TiledLevel extends TiledMap
 				state.player_start = new FlxObject(x, y, 1, 1);
 				group.add(state.player_start);
 				
-				
 				FlxG.log.add("Player object added");
 			case "player_exit":
 				state.levelExit = new FlxObject(x, y, o.width, o.height);
 				state.add(state.levelExit);
+			case "textidk":
+				var text = new FlxText(x, y, o.width, o.name, 16);
+				
+				state.add(text);
 			/*		
 			case "oob":
 				var oob = new FlxObject(x, y, o.width, o.height);

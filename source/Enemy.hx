@@ -20,6 +20,7 @@ class Enemy extends Character
 	private var patrolPath:FlxPath;
 	private var curNode:Int = 0;
 	
+	private var enemyNum:Int = FlxG.random.int(1, 2);
 
 	
 	public function new(?X:Float=0, ?Y:Float=0, Path:FlxPath) 
@@ -29,7 +30,7 @@ class Enemy extends Character
 		firerate = 15;
 		health = 1;
 		
-		loadGraphic("assets/images/enemy1Sheet.png", true, 64, 28);
+		loadGraphic("assets/images/enemy" + enemyNum + "Sheet.png", true, 64, 28);
 		animation.add("idle", [0, 1, 2], 12);
 		animation.play("idle");
 		setGraphicSize(Std.int(width * 1.5));
@@ -84,7 +85,7 @@ class Enemy extends Character
 	public function shot(velX:Float, velY:Float):Void
 	{
 		//makeGraphic(64, 80, FlxColor.LIME);
-		loadGraphic("assets/images/enemyFallenSheet.png", true, 64, 80);
+		loadGraphic("assets/images/enemyFallenSheet" + enemyNum +".png", true, 64, 80);
 		animation.add("ded", [0, 1, 2], 8);
 		animation.play("ded");
 		if (path != null)

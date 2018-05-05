@@ -5,11 +5,15 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.group.FlxGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxVelocity;
 import flixel.text.FlxText;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
+import com.newgrounds.*;
+import com.newgrounds.components.*;
+
 
 class LevelBaseState extends FlxState
 {
@@ -33,7 +37,11 @@ class LevelBaseState extends FlxState
 	public var _grpCollidableObjects:FlxTypedGroup<FlxBasic>;
 	public var _grpDialogues:FlxTypedGroup<DialogueTrigger>;
 	
+	private var _grpHUDShit:FlxGroup;
+	
 	public var txtHealth:FlxText;
+	public var numEnemies:Int = 0;
+	public var totalEnemeis:Int = 0;
 	
 	public var levelsArray:Array<String> =
 	[
@@ -120,12 +128,18 @@ class LevelBaseState extends FlxState
 	
 	private function reloadMap(direction:Int = FlxObject.UP):Void
 	{
+		FlxG.log.add("new level");
+		totalEnemeis = 0;
+		numEnemies = 0;
+		
 		remove(_map.backgroundLayer);
 		remove(_map.imagesLayer);
 		remove(_map.BGObjects);
 		remove(_map.foregroundObjects);
 		remove(_map.objectsLayer);
 		remove(_map.foregroundTiles);
+		
+		remove(_grpHUDShit);
 		
 		_grpEnemies.forEachExists(killEnemies);
 		
@@ -162,6 +176,10 @@ class LevelBaseState extends FlxState
 		
 		add(_map.foregroundTiles);
 		
+		add(_grpHUDShit);
+		
+		FlxG.log.add("load levels?");
+		
 	}
 	
 	private function killEnemies(e:Enemy):Void
@@ -171,18 +189,20 @@ class LevelBaseState extends FlxState
 	
 	private function initHUD():Void
 	{
+		_grpHUDShit = new FlxGroup();
+		add(_grpHUDShit);
+		
 		_dialogueListener = new DialogueListener(0, 0);
 		_dialogueListener.scrollFactor.set();
-		add(_dialogueListener);
+		_grpHUDShit.add(_dialogueListener);
 		
 		txtHealth = new FlxText(10, 10, 0, "", 32);
 		txtHealth.scrollFactor.set(0, 0);
-		add(txtHealth);
+		_grpHUDShit.add(txtHealth);
 		
-		txtTimer = new FlxText(0, 10, 0, "", 32);
+		txtTimer = new FlxText(FlxG.width * 0.65, 10, 0, "", 32);
 		txtTimer.scrollFactor.set(0, 0);
-		txtTimer.screenCenter(X);
-		add(txtTimer);
+		_grpHUDShit.add(txtTimer);
 	}
 	
 	private function bulletSet(e:Enemy):Void
@@ -192,16 +212,6 @@ class LevelBaseState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.overlap(_player, levelExit))
-		{
-			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function()
-			{
-				reloadMap(FlxObject.UP);
-				FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
-			});
-		}
-		else if (FlxG.keys.justPressed.DOWN)
-			//reloadMap(FlxObject.DOWN);
 		
 		if (FlxG.overlap(_player, _grpDialogues))
 		{
@@ -231,8 +241,23 @@ class LevelBaseState extends FlxState
 		
 		txtHealth.text = Std.string(FlxMath.roundDecimal(_player.health, 2));
 		
-		if (!_player.alive)
+		txtHealth.text += Std.string("   " + numEnemies + "/" + totalEnemeis + " enemies killed");
+		
+		if (FlxG.overlap(_player, levelExit) && numEnemies >= totalEnemeis)
 		{
+			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function()
+			{
+				reloadMap(FlxObject.UP);
+				FlxG.camera.fade(FlxColor.BLACK, 0.3, true);
+			});
+		}
+		
+		if (!_player.alive || FlxG.keys.justPressed.R)
+		{
+			if (API.isNewgrounds)
+			{
+				API.unlockMedal("Deadzo");
+			}
 			FlxG.resetState();
 		}
 		FlxG.collide(_grpCollidableObjects, enemyBullets);
@@ -296,6 +321,10 @@ class LevelBaseState extends FlxState
 			impact.angle = b.angle;
 			_grpEffects.add(impact);
 			
+			_player.velocity.x += b.velocity.x * 0.2;
+			_player.velocity.y += b.velocity.y * 0.2;
+			
+			
 			
 			b.kill();
 			_player.hurt(FlxG.random.float(0.5, 1.5));
@@ -308,10 +337,10 @@ class LevelBaseState extends FlxState
 			if (FlxG.overlap(b, enemy) && b.bType == "Player" && !enemy.isDead)
 			{
 				var healthAdd = FlxG.random.float(0.45, 0.85);
-				FlxG.log.add(healthAdd);
 				_player.health += healthAdd;
 				enemy.health -= 1;
 				enemy.shot(b.velocity.x, b.velocity.y);
+				numEnemies += 1;
 				b.kill();
 			}
 		}
