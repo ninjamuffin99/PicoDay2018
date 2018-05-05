@@ -19,6 +19,7 @@ class LevelBaseState extends FlxState
 	private var playerBullets:FlxTypedGroup<Bullet>;
 	private var enemyBullets:FlxTypedGroup<Bullet>;
 	private var _dialogueListener:DialogueListener;
+	public var levelExit:FlxObject;
 	
 	private var speedTimer:Float = 0;
 	private var txtTimer:FlxText;
@@ -116,7 +117,7 @@ class LevelBaseState extends FlxState
 		_grpEnemies.forEach(bulletSet);
 	}
 	
-	private function reloadMap():Void
+	private function reloadMap(direction:Int = FlxObject.UP):Void
 	{
 		remove(_map.backgroundLayer);
 		remove(_map.imagesLayer);
@@ -127,8 +128,28 @@ class LevelBaseState extends FlxState
 		
 		_grpEnemies.forEachExists(killEnemies);
 		
-		_map = new TiledLevel(levelsArray[2], this);
+		
+		if (direction == FlxObject.UP)
+		{
+			curLevel += 1;
+		}
+		else
+		{
+			curLevel -= 1;
+		}
+		
+		
+		_map = new TiledLevel(levelsArray[curLevel], this);
 		_grpEnemies.forEach(bulletSet);
+		
+		if (direction == FlxObject.UP)
+		{
+			_player.setPosition(player_start.x, player_start.y);
+		}
+		else
+		{
+			_player.setPosition(levelExit.x, levelExit.y);
+		}
 		
 		add(_map.backgroundLayer);
 		add (_map.imagesLayer);
@@ -152,7 +173,6 @@ class LevelBaseState extends FlxState
 		_dialogueListener.scrollFactor.set();
 		add(_dialogueListener);
 		
-		
 		txtHealth = new FlxText(10, 10, 0, "", 32);
 		txtHealth.scrollFactor.set(0, 0);
 		add(txtHealth);
@@ -170,10 +190,10 @@ class LevelBaseState extends FlxState
 
 	override public function update(elapsed:Float):Void
 	{
-		if (FlxG.keys.justPressed.G)
-		{
-			reloadMap();
-		}
+		if (FlxG.keys.justPressed.UP)
+			reloadMap(FlxObject.UP);
+		else if (FlxG.keys.justPressed.DOWN)
+			reloadMap(FlxObject.DOWN);
 		
 		if (FlxG.overlap(_player, _grpDialogues))
 		{

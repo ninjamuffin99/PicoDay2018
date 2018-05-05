@@ -28,7 +28,7 @@ class Player extends Character
 		maxVelocity.set(playerMaxVel, playerMaxVel);
 		drag.set(_playerDrag, _playerDrag);
 		
-		loadGraphic("assets/images/picoSheet.png", true, 64, 28);
+		loadGraphic("assets/images/picoSheet.png", true, 64, 32);
 		animation.add("idle", [0, 1, 2], 12);
 		animation.add("walk", [3, 4, 5, 6, 5, 4], 12);
 		animation.play("idle");

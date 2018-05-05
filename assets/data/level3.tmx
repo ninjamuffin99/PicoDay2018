@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="74" height="113" tilewidth="32" tileheight="32" infinite="0" nextobjectid="161">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="74" height="113" tilewidth="32" tileheight="32" infinite="0" nextobjectid="162">
  <tileset firstgid="1" name="goodTiles" tilewidth="32" tileheight="32" tilecount="36" columns="9">
   <image source="tile_temple_0.png" width="288" height="128"/>
   <tile id="0">
@@ -32,6 +32,7 @@
  </layer>
  <objectgroup name="Objects">
   <object id="132" name="player_start" type="player_start" x="878" y="902"/>
+  <object id="161" name="player_exit" type="player_exit" x="1234.25" y="2048.04" width="135.5" height="69.25"/>
  </objectgroup>
  <objectgroup name="Enemies">
   <object id="135" name="enemy" type="enemy" x="1165.33" y="1481.33"/>
