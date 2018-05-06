@@ -100,10 +100,13 @@ class Character extends FlxSprite
 	{
 		if (canFire)
 		{
+			FlxG.sound.play("assets/sounds/bullet" + FlxG.random.int(1, 3) + ".mp3", 0.13);
 			if (bullType == "Enemy")
 			{
 				FlxG.log.add("enemy Fired");
 			}
+			var xdir = Math.cos(curRads);
+			var ydir = Math.sin(curRads);
 			
 			var newBullet = new Bullet(getMidpoint().x, getMidpoint().y, 1000, 60, curRads);
 			newBullet.accuracy = accuracy;
@@ -117,8 +120,7 @@ class Character extends FlxSprite
 			velocity.y -= newBullet.velocity.y * 0.25;
 			
 			var muzzFlash = new BulletStuff(getMidpoint().x - (32 / 2), getMidpoint().y - (20 / 2));
-			var xdir = Math.cos(curRads);
-			var ydir = Math.sin(curRads);
+			
 			muzzFlash.x += xdir * 35;
 			muzzFlash.y += ydir * 35;
 			muzzFlash.velocity.set(velocity.x * 0.15, velocity.y * 0.15);

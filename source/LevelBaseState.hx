@@ -40,6 +40,7 @@ class LevelBaseState extends FlxState
 	private var _grpHUDShit:FlxGroup;
 	
 	public var txtHealth:FlxText;
+	private var txtEnemies:FlxText;
 	public var numEnemies:Int = 0;
 	public var totalEnemeis:Int = 0;
 	
@@ -50,6 +51,20 @@ class LevelBaseState extends FlxState
 		"assets/data/level3.tmx",
 		"assets/data/level4.tmx",
 		"assets/data/level5.tmx"
+	];
+	
+	private var musicArray:Array<String> = 
+	[
+		"assets/music/234111_Pico_factory.mp3",
+		"assets/music/483275_Picos-Flub.mp3",
+		"assets/music/531991_Underground-Pico-Beat.mp3",
+		"assets/music/683334_Generic-Pico-Day-Content.mp3",
+		"assets/music/683382_Hurting.mp3",
+		"assets/music/683411_Pico-Day-Funk.mp3",
+		"assets/music/683479_StarGunner.mp3",
+		"assets/music/742027_God-Uzi.mp3",
+		"assets/music/742237_Neverending-Nightmare-8.mp3",
+		"assets/music/804226_Enter-Pico.mp3"
 	];
 	
 	public var enemiesArray:Array<FlxTypedGroup<Enemy>> = [];
@@ -67,6 +82,15 @@ class LevelBaseState extends FlxState
 			FlxG.sound.playMusic("assets/music/234111_Pico_factory.ogg");
 		#end
 		*/
+		
+		if (FlxG.sound.music.playing)
+		{
+			var musicic = FlxG.random.getObject(musicArray);
+			FlxG.log.add(musicic);
+			FlxG.sound.playMusic(musicic, 0, false);
+			FlxG.sound.music.fadeIn(4, 0, 0.45);
+		}
+		
 		
 		initObjects();
 		
@@ -128,6 +152,7 @@ class LevelBaseState extends FlxState
 	
 	private function reloadMap(direction:Int = FlxObject.UP):Void
 	{
+		
 		FlxG.log.add("new level");
 		totalEnemeis = 0;
 		numEnemies = 0;
@@ -154,6 +179,10 @@ class LevelBaseState extends FlxState
 			curLevel -= 1;
 		}
 		
+		if (curLevel >= levelsArray.length)
+		{
+			FlxG.switchState(new Ending());
+		}
 		
 		_map = new TiledLevel(levelsArray[curLevel], this);
 		_grpEnemies.forEach(bulletSet);
@@ -196,22 +225,35 @@ class LevelBaseState extends FlxState
 		_dialogueListener.scrollFactor.set();
 		_grpHUDShit.add(_dialogueListener);
 		
-		txtHealth = new FlxText(10, 10, 0, "", 32);
+		txtHealth = new FlxText(10, 44, 0, "", 32);
 		txtHealth.scrollFactor.set(0, 0);
 		_grpHUDShit.add(txtHealth);
 		
 		txtTimer = new FlxText(FlxG.width * 0.65, 10, 0, "", 32);
 		txtTimer.scrollFactor.set(0, 0);
 		_grpHUDShit.add(txtTimer);
+		
+		txtEnemies = new FlxText(10, 10, 0, "", 32);
+		txtEnemies.scrollFactor.set();
+		_grpHUDShit.add(txtEnemies);
 	}
 	
 	private function bulletSet(e:Enemy):Void
 	{
 		e.bulletArray = enemyBullets;
 	}
+	
+	private function finishMusic():Void
+	{
+		FlxG.sound.playMusic(FlxG.random.getObject(musicArray), 0.45);
+	}
 
 	override public function update(elapsed:Float):Void
 	{
+		if (!FlxG.sound.music.playing || FlxG.keys.justPressed.E)
+		{
+			finishMusic();
+		}
 		
 		if (FlxG.overlap(_player, _grpDialogues))
 		{
@@ -239,11 +281,11 @@ class LevelBaseState extends FlxState
 		txtTimer.text = "Time: " + FlxMath.roundDecimal(speedTimer, 2);
 		
 		
-		txtHealth.text = Std.string(FlxMath.roundDecimal(_player.health, 2));
+		txtHealth.text = Std.string(FlxMath.roundDecimal(FlxMath.remapToRange(FlxMath.roundDecimal(_player.health, 2), 0, 4.5, 0, 10), 2)) + " HP";
 		
-		txtHealth.text += Std.string("   " + numEnemies + "/" + totalEnemeis + " enemies killed");
+		txtEnemies.text = Std.string(numEnemies + "/" + totalEnemeis + " enemies killed");
 		
-		if (FlxG.overlap(_player, levelExit) && numEnemies >= totalEnemeis)
+		if (FlxG.overlap(_player, levelExit) && numEnemies >= totalEnemeis || FlxG.keys.justPressed.UP)
 		{
 			FlxG.camera.fade(FlxColor.BLACK, 0.3, false, function()
 			{
@@ -336,11 +378,16 @@ class LevelBaseState extends FlxState
 			
 			if (FlxG.overlap(b, enemy) && b.bType == "Player" && !enemy.isDead)
 			{
+				FlxG.sound.play("assets/sounds/killImpact.wav");
 				var healthAdd = FlxG.random.float(0.45, 0.85);
 				_player.health += healthAdd;
 				enemy.health -= 1;
 				enemy.shot(b.velocity.x, b.velocity.y);
 				numEnemies += 1;
+				if (numEnemies >= totalEnemeis)
+				{
+					FlxG.sound.play("assets/sounds/unlock.wav");
+				}
 				b.kill();
 			}
 		}

@@ -44,8 +44,8 @@ class Bullet extends FlxSprite
 		var xdir = Math.cos(angleOffset);
 		var ydir = Math.sin(angleOffset);
 		
-		x += xdir * 35;
-		y += ydir * 35;
+		x += xdir * 16;
+		y += ydir * 16;
 		
 		speed = Speed;
 		
@@ -88,5 +88,12 @@ class Bullet extends FlxSprite
 		{
 			kill();
 		}	
+	}
+	
+	override public function kill():Void 
+	{
+		FlxG.sound.play("assets/sounds/impact.wav", 0.6);
+		
+		super.kill();
 	}
 }

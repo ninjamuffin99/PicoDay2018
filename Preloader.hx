@@ -40,7 +40,7 @@ class Preloader extends FlxBasePreloader
 		
 		var ratio:Float = this._width / 800; //This allows us to scale assets depending on the size of the screen.
 		#if (flash)
-			API.connect(root, "APU", "ENC KEY");
+			API.connect(root, APIStuff.apiKey, APIStuff.encKey);
 		#end
 		
 		super.create();
