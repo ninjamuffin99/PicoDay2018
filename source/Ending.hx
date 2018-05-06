@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import io.newgrounds.NG;
 
 /**
  * ...
@@ -26,6 +27,12 @@ class Ending extends FlxState
 		instructions = new FlxText(0, FlxG.height - 34, FlxG.width, "Press ENTER to go back to the main menu", 32);
 		instructions.screenCenter(X);
 		add(instructions);
+		
+		#if (flash)
+				var winMedal = NG.core.medals.get(54811);
+				if (!winMedal.unlocked)
+					winMedal.sendUnlock();
+		#end
 
 		super.create();
 	}

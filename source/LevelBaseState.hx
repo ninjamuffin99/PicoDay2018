@@ -13,6 +13,7 @@ import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import com.newgrounds.*;
 import com.newgrounds.components.*;
+import io.newgrounds.NG;
 
 
 class LevelBaseState extends FlxState
@@ -296,10 +297,11 @@ class LevelBaseState extends FlxState
 		
 		if (!_player.alive || FlxG.keys.justPressed.R)
 		{
-			if (API.isNewgrounds)
-			{
-				API.unlockMedal("Deadzo");
-			}
+			#if (flash)
+				var deadMedal = NG.core.medals.get(54808);
+				if (!deadMedal.unlocked)
+					deadMedal.sendUnlock();
+			#end
 			FlxG.resetState();
 		}
 		FlxG.collide(_grpCollidableObjects, enemyBullets);

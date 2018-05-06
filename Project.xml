@@ -79,6 +79,7 @@
 	<!-- _________________________________ Custom _______________________________ -->
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	<classpath path="newgroundsAPI/lib/src"/>
 	<haxedef name="as3_native" if="flash"/>
 	<haxeflag name="-swf-lib" value="NewgroundsAPI.swc" if="flash"/>
 </project>
